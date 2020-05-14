@@ -2,5 +2,28 @@
 /project/target/
 /target/
 
-/IntelliJ IDEA
-.idea
+#IntelliJ IDEA
+.idea/
+target/
+
+#sbt
+.cache
+.history
+.lib/
+dist/*
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+project/target/
+project/project/
+logs/
+project/.sbtserver
+.sbtserver/
+
+# Scala-IDE specific
+.scala_dependencies
+.worksheet
+
+# Application
+Beads.log
