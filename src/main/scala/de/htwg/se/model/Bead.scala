@@ -1,7 +1,5 @@
 package de.htwg.se.model
 
-import de.htwg.se.model.Stitch.Value
-
 object Stitch extends Enumeration {
   val Brick, Square, Fringe = Value
 }

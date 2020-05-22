@@ -85,7 +85,6 @@ bead2.changeColor(red).toString
 
 bead1.equals(bead1)
 
-var beadMap:Map[Coord,Bead] = Map()
 
 case class House(beads:Vector[Bead])
 
