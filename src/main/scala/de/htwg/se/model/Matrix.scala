@@ -1,4 +1,4 @@
-package de.htwg.se.model
+package de.htwg.se.beads.model
 
 import scala.collection.immutable.Vector
 
@@ -13,9 +13,9 @@ case class Matrix(matrix:Vector[Vector[Bead]]) {
   val size: (Int,Int) = (matrix.size,matrix.head.size)
   def bead(row:Int, col:Int):Bead = matrix (row)(col)
 
-  def fill (filling:Bead):Matrix = copy(
-    Vector.tabulate(this.size._1, this.size._2){
-      (row,col) => filling
-    }
-  )
+//  def fill (filling:Bead):Matrix = copy(
+//    Vector.tabulate(this.size._1, this.size._2){
+//      (row,col) => filling
+//    }
+//  )
 }

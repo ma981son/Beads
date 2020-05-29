@@ -142,11 +142,15 @@ case class Grid(beads:Matrix) {
   }
 }
 
-val grid1 = new Grid(3,2)
-grid1.bead(0,0)
+val grid1 = new Grid(2,2)
+grid1.bead(1,0).beadCoord
 grid1.bead(0,0).isFilled
 val grid2 = grid1.setColor(0,0,red)
-
+grid1.row(0)
+grid1.row(1)
+grid1.col(0)
+grid1.col(1)
+grid1.col(0).beads(1).beadCoord
 
 
 

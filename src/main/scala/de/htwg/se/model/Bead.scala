@@ -1,4 +1,4 @@
-package de.htwg.se.model
+package de.htwg.se.beads.model
 
 object Stitch extends Enumeration {
   val Brick, Square, Fringe = Value

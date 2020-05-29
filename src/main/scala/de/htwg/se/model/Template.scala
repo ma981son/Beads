@@ -1,6 +1,6 @@
-package de.htwg.se.model
+package de.htwg.se.beads.model
 
-case class Grid(beads:Matrix) {
+case class Template(beads:Matrix) {
   def this(length: Int, width: Int) = this(new Matrix(length, width, Bead(Coord(0, 0), Stitch.Square, Color(255, 255, 255))))
 
   val size_rows: Int = beads.size._1
@@ -8,7 +8,7 @@ case class Grid(beads:Matrix) {
 
   def bead(row: Int, col: Int): Bead = beads.bead(row, col)
 
-  def setColor(row: Int, col: Int, color: Color): Grid = {
+  def setColor(row: Int, col: Int, color: Color): Template = {
     val oldbead = bead(row, col)
     copy(beads.replaceBead(row, col, Bead(oldbead.beadCoord, oldbead.beadStitch, color)))
   }
