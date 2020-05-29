@@ -1,8 +1,9 @@
 package de.htwg.se.beads.model
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
 
-class MatrixSpec extends WordSpec with Matchers {
+class MatrixSpec extends AnyWordSpec with Matchers {
   "A Matrix is a tailor-made immutable data type that contains a two-dimentional Vector of Beads. A Matrix" when {
     "empty " should {
       "be created by using a dimention and a sample bead" in {

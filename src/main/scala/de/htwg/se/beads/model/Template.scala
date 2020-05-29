@@ -8,7 +8,7 @@ case class Template(beads:Matrix) {
 
   def bead(row: Int, col: Int): Bead = beads.bead(row, col)
 
-  def setColor(row: Int, col: Int, color: Color): Template = {
+  def setColor(row: Int, col: Int, color:Color): Template = {
     val oldbead = bead(row, col)
     copy(beads.replaceBead(row, col, Bead(oldbead.beadCoord, oldbead.beadStitch, color)))
   }
