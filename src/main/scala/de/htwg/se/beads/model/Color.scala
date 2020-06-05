@@ -1,7 +1,5 @@
 package de.htwg.se.beads.model
 
-import de.htwg.se.beads.model
-
 import scala.collection.immutable.Map
 import io.AnsiColor._
 

@@ -155,7 +155,7 @@ case class Grid(beads:Matrix) {
   }
 }
 val r = new Matrix(2,2,bead1)
-r.replaceRowColor(0, white)
+r.matrix.map(_(0)).map(bead => bead.changeColor(white))
 
 val grid1 = new Grid(2,2)
 grid1.bead(1,0).beadCoord

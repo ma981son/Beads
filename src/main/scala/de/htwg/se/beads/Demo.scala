@@ -1,11 +1,10 @@
-package de.htwg.se.beads.aview
+package de.htwg.se.beads
 
-import de.htwg.se.beads.model.{Bead, Color, Coord, Stitch, Template, rgbToAnsi, stringToAnsi}
+import de.htwg.se.beads.model._
 
 import scala.io.AnsiColor._
 import scala.io.StdIn.readLine
-import scala.util.{Failure, Success, Try}
-
+import scala.util.Try
 
 object Demo {
 
@@ -45,4 +44,3 @@ object Demo {
 
   }
 }
-

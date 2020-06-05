@@ -6,11 +6,11 @@ import org.scalatest.wordspec.AnyWordSpec
 class TemplateSpec extends AnyWordSpec with Matchers {
   "A Template is a Square    of Beads. A Template" when{
     "constructed" should {
-//      "be created with the length and width of its edges as size"{
-//        val template = new Template(2,3)
-//        template.size_cols should be (3)
-//        template.size_rows should be (2)
-//      }
+      "be created with the length and width of its edges as size" in {
+        val template = new Template(2,3)
+        template.size_cols should be (3)
+        template.size_rows should be (2)
+      }
       "for test purposes only created with Matrix of beads" in {
         val template = Template(new Matrix(2,3,Bead(Coord(0,0),Stitch.Square,Color(255,255,255))))
         template.size_rows should be (2)
@@ -41,6 +41,13 @@ class TemplateSpec extends AnyWordSpec with Matchers {
         template.col(0).beads(1) should be(Bead(Coord(1, 0), Stitch.Square, Color(255, 255, 255)))
         template.col(1).beads(0) should be(Bead(Coord(0, 1), Stitch.Square, Color(255, 255, 255)))
         template.col(1).beads(1) should be(Bead(Coord(1, 1), Stitch.Square, Color(255, 255, 255)))
+      }
+      "when changed in size" in{
+        val changedSizeTemp = template.changeSize(3,2)
+        changedSizeTemp.size_cols should be(2)
+        changedSizeTemp.size_rows should be(3)
+        template.size_rows should be(2)
+        template.size_cols should be(2)
       }
       "have a String " in {
         val stringTemp = template.toString

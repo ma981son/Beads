@@ -21,36 +21,13 @@ case class Bead(beadCoord:Coord,
     case _ => false
   }
 
-  def addBeadRight: Bead = {
-    if (!beadStitch.equals(Stitch.Fringe)) {
-      val newBead = Bead(Coord(beadCoord.x + 1, beadCoord.y),beadStitch, beadColor)
-      return newBead
-    }
-    None.get
-  }
+  def addBeadRight(): Bead = {Bead(Coord(beadCoord.x + 1, beadCoord.y), beadStitch, beadColor)}
 
-  def addBeadUp: Bead = {
-    if (!beadStitch.equals(Stitch.Fringe) && !beadStitch.equals(Stitch.Brick)) {
-      val newBead = Bead(Coord(beadCoord.x, beadCoord.y + 1),beadStitch, beadColor)
-      return newBead
-    }
-    None.get
-  }
+  def addBeadUp(): Bead = {Bead(Coord(beadCoord.x, beadCoord.y + 1),beadStitch, beadColor)}
 
-  def addBeadLeft: Bead = {
-    if (!beadStitch.equals(Stitch.Fringe)) {return Bead(Coord(beadCoord.x - 1, beadCoord.y),beadStitch,beadColor)}
-    None.get
-
-  }
+  def addBeadLeft(): Bead = {Bead(Coord(beadCoord.x - 1, beadCoord.y),beadStitch,beadColor)}
 
   override def toString: String = {
-    val standard = Color(255.0,255.0,255.0).toString().size
-    val beadsize = beadColor.toString().size
-    if(beadsize < standard){
-      val space = (standard - beadsize) /2
-      "| "+ "  " * space + beadColor+ "  " * space + " |"
-    }
     s"|${rgbToAnsi.colors.get(beadColor).get}   ${RESET}|"
   }
-
 }
