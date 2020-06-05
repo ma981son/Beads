@@ -1,7 +1,7 @@
 package de.htwg.se.beads.model
 
-import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
 class TemplateSpec extends AnyWordSpec with Matchers {
   "A Template is a Square    of Beads. A Template" when{
@@ -45,11 +45,11 @@ class TemplateSpec extends AnyWordSpec with Matchers {
       "have a String " in {
         val stringTemp = template.toString
         stringTemp should be(
-          "\n--------------------------------------------------------" +
-          "\n| Color(255.0,255.0,255.0) || Color(255.0,255.0,255.0) |" +
-          "\n--------------------------------------------------------" +
-          "\n| Color(255.0,255.0,255.0) || Color(255.0,255.0,255.0) |" +
-          "\n--------------------------------------------------------\n")
+          "\n----------" +
+          "\n|\u001B[47m   \u001B[0m||\u001B[47m   \u001B[0m|" +
+          "\n----------" +
+          "\n|\u001B[47m   \u001B[0m||\u001B[47m   \u001B[0m|" +
+          "\n----------\n")
       }
     }
 

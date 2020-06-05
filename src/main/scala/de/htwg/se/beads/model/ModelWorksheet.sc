@@ -1,10 +1,6 @@
 import scala.collection.immutable.Vector
-
-case class Color(r:Double, g:Double, b:Double){
-  override def toString():String = {
-    "Color("+r+","+g+","+b+")"
-  }
-}
+import scala.io.AnsiColor.RESET
+import de.htwg.se.beads.model.{Bead, Color, Coord, Matrix, Stitch, Template, Vektor, rgbToAnsi}
 
 var red = Color(255.0,0.0,0.0)
 var white = Color(255,255,255)
@@ -62,7 +58,7 @@ case class Bead(beadCoord:Coord,
       val space = (standard - beadsize) /2
       "| "+ "  " * space + beadColor+ "  " * space + " |"
     }
-    "| "+ beadColor+" |"
+    s"| "+ beadColor +" |"
   }
 
 }
@@ -86,9 +82,13 @@ bead2.changeColor(red).toString
 bead1.equals(bead1)
 
 
-case class House(beads:Vector[Bead])
+case class House(beads:Vector[Bead]){
+  def colorHouse(color: Color):House = copy(beads.map(bead => bead.changeColor(color)))
+}
 
 val t = Vector.fill(2)(bead1)
+val house = new House(t)
+house.colorHouse(white)
 
 case class Matrix(matrix:Vector[Vector[Bead]]) {
 
@@ -97,6 +97,12 @@ case class Matrix(matrix:Vector[Vector[Bead]]) {
 
   def replaceBead(row:Int, col:Int, cell:Bead):Matrix =
     copy(matrix.updated(row, matrix(row).updated(col, cell)))
+
+  def replaceRowColor(row:Int, color: Color):Matrix =
+    copy(matrix.updated(row, matrix(row).map(bead => bead.changeColor(color))))
+
+  def replaceColumnColor(col:Int, color: Color):Matrix =
+    copy(matrix.updated(col, matrix.map(_(col)).map(bead => bead.changeColor(color))))
 
   val size: (Int,Int) = (matrix.size,matrix.head.size)
   def bead(row:Int, col:Int):Bead = matrix (row)(col)
@@ -123,14 +129,21 @@ case class Grid(beads:Matrix) {
   }
 
   def row(row: Int): House = House(beads.matrix(row))
+  def setRowColor(row:Int, color: Color):Grid = {
+    copy(beads.replaceRowColor(row,color))
+  }
 
   def col(col: Int): House = House(beads.matrix.map(row => row(col)))
+  def setColumnColor(col:Int, color: Color):Grid = {
+    copy(beads.replaceColumnColor(col,color))
+  }
+  def changeSize(l:Int,w:Int): Grid = copy(new Matrix(l,w,Bead(Coord(0, 0), Stitch.Square, Color(255, 255, 255))))
 
   override def toString: String = {
     val regex = "x".r
     val line = "x" * size_cols + "\n"
     var lineseparator = ("-" * beads.bead(0,0).toString.size) * size_cols + "\n"
-    var box = "\n" + (lineseparator + ((line + lineseparator) * size_rows))
+    var box = "\n" + (line * size_rows)
 
     for (row <- 0 until size_rows) {
       for (col <- 0 until size_cols) {
@@ -141,6 +154,8 @@ case class Grid(beads:Matrix) {
     box
   }
 }
+val r = new Matrix(2,2,bead1)
+r.replaceRowColor(0, white)
 
 val grid1 = new Grid(2,2)
 grid1.bead(1,0).beadCoord
@@ -151,6 +166,9 @@ grid1.row(1)
 grid1.col(0)
 grid1.col(1)
 grid1.col(0).beads(1).beadCoord
+val tq = grid1.changeSize(5,5)
+tq.size_cols
+tq.setColumnColor(1,red)
 
 
 

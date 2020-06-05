@@ -1,4 +1,5 @@
 package de.htwg.se.beads.model
+import scala.io.AnsiColor.RESET
 
 object Stitch extends Enumeration {
   val Brick, Square, Fringe = Value
@@ -49,7 +50,7 @@ case class Bead(beadCoord:Coord,
       val space = (standard - beadsize) /2
       "| "+ "  " * space + beadColor+ "  " * space + " |"
     }
-    "| "+ beadColor+" |"
+    s"|${rgbToAnsi.colors.get(beadColor).get}   ${RESET}|"
   }
 
 }

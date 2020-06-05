@@ -1,7 +1,7 @@
 package de.htwg.se.beads.model
 
-import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
 class BeadSpec extends AnyWordSpec with Matchers {
 
@@ -49,34 +49,34 @@ class BeadSpec extends AnyWordSpec with Matchers {
       val bead = Bead(Coord(0, 0), Stitch.Square, Color(255, 255, 255))
       val newBead = bead.addBeadRight
       "return a new bead" in {
-        bead should be (Coord(0, 0), Stitch.Square, Color(255, 255, 255))
+        bead should be (Bead(Coord(0, 0), Stitch.Square, Color(255, 255, 255)))
         newBead should be(Bead(Coord(1, 0), Stitch.Square, Color(255, 255, 255)))
       }
     }
 
-    "added a left bead" in {
+    "added a left bead" should {
       val bead = Bead(Coord(0, 0), Stitch.Square, Color(255, 255, 255))
       val newBead = bead.addBeadLeft
       "return the new bead" in {
-        bead should be (Coord(0, 0), Stitch.Square, Color(255, 255, 255))
+        bead should be (Bead(Coord(0, 0), Stitch.Square, Color(255, 255, 255)))
         newBead should be(Bead(Coord(-1, 0), Stitch.Square, Color(255, 255, 255)))
       }
     }
 
-    "added a bead up" in {
+    "added a bead up" should {
       val bead = Bead(Coord(0, 0), Stitch.Square, Color(255, 255, 255))
       val newBead = bead.addBeadUp
       "return the new bead" in {
-        bead should be (Coord(0, 0), Stitch.Square, Color(255, 255, 255))
+        bead should be (Bead(Coord(0, 0), Stitch.Square, Color(255, 255, 255)))
         newBead should be(Bead(Coord(0, 1), Stitch.Square, Color(255, 255, 255)))
       }
     }
 
-    "have a String" in {
+    "have a String" should {
       val bead = Bead(Coord(0, 0), Stitch.Square, Color(255, 255, 255))
       val string = bead.toString
       "return string" in {
-        string should be("| Color(255.0,255.0,255.0) |")
+        string should be("|\u001B[47m   \u001B[0m|")
       }
     }
   }

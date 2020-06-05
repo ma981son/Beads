@@ -13,19 +13,20 @@ case class Template(beads:Matrix) {
     copy(beads.replaceBead(row, col, Bead(oldbead.beadCoord, oldbead.beadStitch, color)))
   }
 
-  def row(row: Int): House = House(beads.matrix(row))
+  def changeSize(l:Int,w:Int): Template = copy(new Matrix(l,w,Bead(Coord(0, 0), Stitch.Square, Color(255, 255, 255))))
 
-  def col(col: Int): House = House(beads.matrix.map(row => row(col)))
+  def row(row: Int): Vektor = Vektor(beads.matrix(row))
+
+  def col(col: Int): Vektor = Vektor(beads.matrix.map(row => row(col)))
 
   override def toString: String = {
     val regex = "x".r
     val line = "x" * size_cols + "\n"
-    var lineseparator = ("-" * beads.bead(0,0).toString.size) * size_cols + "\n"
-    var box = "\n" + (lineseparator + ((line + lineseparator) * size_rows))
+    var lineseparator = ("-" * 5) * size_cols + "\n"
+    var box = "\n" + (lineseparator + (line + lineseparator) * size_rows)
 
     for (row <- 0 until size_rows) {
       for (col <- 0 until size_cols) {
-        lineseparator = ("-" * bead(size_rows-1,size_cols-1).toString.size) * size_cols + "\n"
         box = regex.replaceFirstIn(box, bead(row, col).toString)
       }
     }
