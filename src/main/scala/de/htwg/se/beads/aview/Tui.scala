@@ -1,19 +1,23 @@
 package de.htwg.se.beads.aview
 
+import de.htwg.se.beads.controller.Controller
 import de.htwg.se.beads.model.{Template, rgbToAnsi, stringToAnsi}
+import de.htwg.se.beads.util.Observer
 
 import scala.io.StdIn.readLine
 
-class Tui {
+class Tui (controller: Controller) extends Observer{
 
-  def processInputSizeLine(input: String, temp: Template): Template = {
+  controller.add(this)
+
+  def processInputSizeLine(input: String): Unit = {
     input match {
       case _ => {
         val Array(a, b) = input.split(" ")
-        List(a,b).filter(t => t != ' ').map(t => t.toInt) match {
+        List(a, b).filter(t => t != ' ').map(t => t.toInt) match {
 
-          case row :: column :: Nil => temp.changeSize(row,column)
-          case _ => temp
+          case row :: column :: Nil => controller.changeSize(row, column)
+          case _ =>
         }
       }
     }
