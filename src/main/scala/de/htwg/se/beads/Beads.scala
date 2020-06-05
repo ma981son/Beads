@@ -8,9 +8,7 @@ import scala.io.AnsiColor._
 import scala.io.StdIn.readLine
 
 object Beads {
-  var temp = new Template(10,5)
-  val tui = new Tui
-  val controller = new Controller(new Template(10,5))
+  val controller = new Controller(new Template(1,6))
   val tui = new Tui(controller)
   controller.notifyObservers
 
@@ -23,16 +21,13 @@ object Beads {
     print(s"${YELLOW}yellow${RESET}, ${BLUE}blue${RESET}, ${MAGENTA}magenta${RESET}, ")
     print(s"${CYAN}cyan${RESET}, ${WHITE}white${RESET}\n")
 
-
     print("Enter Template length and witdth: ")
     inputSize = readLine()
-    temp = tui.processInputSizeLine(inputSize,temp)
-
+    tui.processInputSizeLine(inputSize)
 
     do{
-      println("Template: " + temp.toString)
       input = readLine()
-      temp = tui.processInputLine(input,temp)
+      tui.processInputLine(input)
     }while(input != "q")
   }
 }

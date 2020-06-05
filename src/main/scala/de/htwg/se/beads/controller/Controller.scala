@@ -19,5 +19,6 @@ class Controller(var temp: Template) extends Observable {
 
   def changeSize(length: Int, width: Int): Unit = {
     temp = temp.changeSize(length, width)
+    notifyObservers
   }
 }

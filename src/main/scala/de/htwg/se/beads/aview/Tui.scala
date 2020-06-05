@@ -15,33 +15,31 @@ class Tui (controller: Controller) extends Observer{
       case _ => {
         val Array(a, b) = input.split(" ")
         List(a, b).filter(t => t != ' ').map(t => t.toInt) match {
-
           case row :: column :: Nil => controller.changeSize(row, column)
           case _ =>
         }
       }
     }
   }
-
-  def processInputLine(input:String, temp:Template):Template={
+  def processInputLine(input:String):Unit={
     var inputSize:String = ""
     input match {
-      case "q" => temp
+      case "q" =>
       case "n" => {
         print("Enter Template length and witdth: ")
         inputSize = readLine()
-        processInputSizeLine(inputSize,temp)
+        processInputSizeLine(inputSize)
       }
       case _ => {
         val Array(a, b, c) = input.split(" ")
         val colo = stringToAnsi.colors(c)
         List(a, b).filter(t => t != ' ').map(t => t.toInt) match {
-          case row :: column :: Nil => temp.setColor(row, column, rgbToAnsi.colors.map(_.swap)(colo))
-          case _ => temp
+          case row :: column :: Nil => controller.setColor(row, column, rgbToAnsi.colors.map(_.swap)(colo))
+          case _ =>
         }
       }
     }
-
   }
+  override def update: Unit = println(controller.TempToString)
 }
 
