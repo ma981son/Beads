@@ -4,7 +4,7 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
 class CoordSpec extends AnyWordSpec with Matchers {
-  "A Bead" when {
+  "Coordinates" when {
     "created" should {
       val coord = Coord(0,0)
       "have an x coordinate" in {
