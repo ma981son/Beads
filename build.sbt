@@ -7,7 +7,10 @@ scalaVersion := "2.13.2"
 
 libraryDependencies += "org.scalactic" %% "scalactic" % "3.1.2"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.1.2" % "test"
-libraryDependencies += "org.scoverage" %% "scalac-scoverage-plugin" % "1.4.0" % Test
+
+// https://mvnrepository.com/artifact/org.scoverage/scalac-scoverage-plugin
+libraryDependencies += "org.scoverage" %% "scalac-scoverage-plugin" % "1.4.1" % "provided"
+
 //*******************************************************************************//
 //Libraries that we will use in later lectures compatible with this scala version
 // uncomment to use!!
