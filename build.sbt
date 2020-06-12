@@ -4,9 +4,10 @@ organization  := "de.htwg.se"
 version := "0.0.1"
 scalaVersion := "2.13.2"
 
+
 libraryDependencies += "org.scalactic" %% "scalactic" % "3.1.2"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.1.2" % "test"
-
+libraryDependencies += "org.scoverage" %% "scalac-scoverage-plugin" % "1.4.0" % Test
 //*******************************************************************************//
 //Libraries that we will use in later lectures compatible with this scala version
 // uncomment to use!!
