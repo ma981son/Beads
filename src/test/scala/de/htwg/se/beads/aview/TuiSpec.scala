@@ -1,7 +1,6 @@
 package de.htwg.se.beads.aview
 import de.htwg.se.beads.controller.Controller
 import de.htwg.se.beads.model.{Color, Template}
-import de.htwg.se.beads.util.Observer
 import org.scalatest.{Matchers, WordSpec}
 
 class TuiSpec extends WordSpec with Matchers {

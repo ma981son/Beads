@@ -1,1 +1,2 @@
 [![Build Status](https://travis-ci.org/ma981son/Beads.svg?branch=master)](https://travis-ci.org/ma981son/Beads)
+[![Coverage Status](https://coveralls.io/repos/github/ma981son/Beads/badge.svg?branch=master)](https://coveralls.io/github/ma981son/Beads?branch=master)
