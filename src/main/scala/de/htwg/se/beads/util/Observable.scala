@@ -1,7 +1,7 @@
 package de.htwg.se.beads.util
 
 trait Observer {
-  def update(): Unit
+  def update(): Boolean
 }
 
 class Observable {
