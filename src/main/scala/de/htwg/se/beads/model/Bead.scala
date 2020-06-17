@@ -28,6 +28,6 @@ case class Bead(beadCoord:Coord,
   def addBeadLeft(): Bead = {Bead(Coord(beadCoord.x - 1, beadCoord.y),beadStitch,beadColor)}
 
   override def toString: String = {
-    s"|${rgbToAnsi.colors.get(beadColor).get}   ${RESET}|"
+    s"|${rgbToAnsi.colors(beadColor)}   ${RESET}|"
   }
 }
