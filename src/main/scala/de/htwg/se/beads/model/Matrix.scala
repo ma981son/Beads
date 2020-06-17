@@ -1,6 +1,6 @@
 package de.htwg.se.beads.model
 
-import scala.collection.immutable.Vector;
+import scala.collection.immutable.Vector
 
 case class Matrix(matrix:Vector[Vector[Bead]]) {
     def this(row: Int = 0, col: Int = 0, startBead: Bead) =

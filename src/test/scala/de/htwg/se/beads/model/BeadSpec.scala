@@ -43,21 +43,21 @@ class BeadSpec extends AnyWordSpec with Matchers {
         }
       }
       "add a right bead and" should {
-        val newBead = bead.addBeadRight
+        val newBead = bead.addBeadRight()
         "return a new bead" in {
           bead should be(Bead(Coord(0, 0), Stitch.Square, Color(255, 255, 255)))
           newBead should be(Bead(Coord(1, 0), Stitch.Square, Color(255, 255, 255)))
         }
       }
       "add a left bead and" should {
-        val newBead = bead.addBeadLeft
+        val newBead = bead.addBeadLeft()
         "return the new bead" in {
           bead should be(Bead(Coord(0, 0), Stitch.Square, Color(255, 255, 255)))
           newBead should be(Bead(Coord(-1, 0), Stitch.Square, Color(255, 255, 255)))
         }
       }
       "add a bead up and" should{
-        val newBead = bead.addBeadUp
+        val newBead = bead.addBeadUp()
         "return the new bead" in {
           bead should be(Bead(Coord(0, 0), Stitch.Square, Color(255, 255, 255)))
           newBead should be(Bead(Coord(0, 1), Stitch.Square, Color(255, 255, 255)))

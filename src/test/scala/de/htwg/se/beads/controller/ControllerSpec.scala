@@ -4,9 +4,11 @@ import de.htwg.se.beads.model.{Color, Template}
 import de.htwg.se.beads.util.Observer
 
 import scala.language.reflectiveCalls
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
-class ControllerSpec extends WordSpec with Matchers {
+
+class ControllerSpec extends AnyWordSpec with Matchers {
 
   "A Controller" when {
     "observed by an Observer" should {
@@ -15,7 +17,7 @@ class ControllerSpec extends WordSpec with Matchers {
       val observer = new Observer {
         var updated: Boolean = false
         def isUpdated: Boolean = updated
-        override def update: Unit = updated = true
+        override def update(): Unit = updated = true
       }
       controller.add(observer)
       "notify its Observer after creation" in {

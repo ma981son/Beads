@@ -1,9 +1,10 @@
 package de.htwg.se.beads.aview
 import de.htwg.se.beads.controller.Controller
 import de.htwg.se.beads.model.{Color, Template}
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
 
-class TuiSpec extends WordSpec with Matchers {
+class TuiSpec extends AnyWordSpec with Matchers {
 
   "A Bead Tui" should {
     val controller = new Controller(new Template(2,2))
