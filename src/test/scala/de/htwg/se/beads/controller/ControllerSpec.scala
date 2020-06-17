@@ -38,7 +38,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         controller.temp.bead(0, 0).beadColor should be(Color(255, 0, 0))
       }
       "have a String" in {
-        controller.TempToString should be("\n---------------" +
+        controller.tempToString should be("\n---------------" +
           "\n|\u001B[41m   \u001B[0m||\u001B[47m   \u001B[0m||\u001B[47m   \u001B[0m|" +
           "\n---------------" +
           "\n|\u001B[47m   \u001B[0m||\u001B[47m   \u001B[0m||\u001B[47m   \u001B[0m|" +

@@ -39,6 +39,6 @@ class Tui (controller: Controller) extends Observer{
         }
     }
   }
-  override def update: Unit = println(controller.TempToString)
+  override def update(): Unit = println(controller.tempToString)
 }
 

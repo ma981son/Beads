@@ -8,30 +8,30 @@ class Controller(var temp: Template) extends Observable {
 
   private val undoManager = new UndoManager
 
-  def createEmptyTemplate(lenght: Int, width: Int): Unit = {
-    temp = new Template(lenght, width)
-    notifyObservers
+  def createEmptyTemplate(length: Int, width: Int): Unit = {
+    temp = new Template(length, width)
+    notifyObservers()
   }
 
-  def TempToString: String = temp.toString
+  def tempToString: String = temp.toString
 
   def setColor(row: Int, col: Int, color: Color): Unit = {
-    temp = temp.setColor(row, col, color)
-    notifyObservers
+    undoManager.doStep(new SetCommand(row,col,color,this))
+    notifyObservers()
   }
 
   def changeSize(length: Int, width: Int): Unit = {
     temp = temp.changeSize(length, width)
-    notifyObservers
+    notifyObservers()
   }
 
   def undo():Unit={
     undoManager.undoStep()
-    notifyObservers
+    notifyObservers()
   }
 
   def redo():Unit={
     undoManager.redoStep()
-    notifyObservers
+    notifyObservers()
   }
 }
