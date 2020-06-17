@@ -1,7 +1,7 @@
 package de.htwg.se.beads.util
 
 class TestObject extends Observer{
-  def update():Unit = println("Ping")
+  def update():Boolean = {println("Ping");true}
 }
 
 object ObserverPattern {
