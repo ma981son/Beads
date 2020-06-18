@@ -64,7 +64,7 @@ case class Bead(beadCoord:Coord,
 }
 
 var bead1 = new Bead(Coord(0,0), Stitch.Square, white)
-bead1.isFilled
+
 bead1.beadCoord.x
 bead1 = bead1.changeColor(red)
 bead1.isFilled
@@ -90,6 +90,11 @@ val t = Vector.fill(2)(bead1)
 val house = new House(t)
 house.colorHouse(white)
 
+implicit class x[A](as: Seq[A]) {
+  def updatedAt(is: collection.Traversable[Int], a: A) = {
+    (as /: is) { case (xx, i) => xx updated (i, a) } } }
+
+
 case class Matrix(matrix:Vector[Vector[Bead]]) {
 
   def this(row: Int = 0, col: Int = 0, startBead: Bead) =
@@ -99,10 +104,13 @@ case class Matrix(matrix:Vector[Vector[Bead]]) {
     copy(matrix.updated(row, matrix(row).updated(col, cell)))
 
   def replaceRowColor(row:Int, color: Color):Matrix =
-    copy(matrix.updated(row, matrix(row).map(bead => bead.changeColor(color))))
+    copy(matrix.updated(row,matrix(row).map(bead=>bead.changeColor(color))))
 
   def replaceColumnColor(col:Int, color: Color):Matrix =
-    copy(matrix.updated(col, matrix.map(_(col)).map(bead => bead.changeColor(color))))
+    copy(matrix.transpose.updated(col,matrix(col).map(bead=>bead.changeColor(color))).transpose)
+
+  def replaceMatrixColor(color: Color):Matrix=
+    copy(matrix.map(vector=>vector.map(bead=>bead.changeColor(color))))
 
   val size: (Int,Int) = (matrix.size,matrix.head.size)
   def bead(row:Int, col:Int):Bead = matrix (row)(col)
@@ -116,7 +124,9 @@ case class Matrix(matrix:Vector[Vector[Bead]]) {
 
 
 case class Grid(beads:Matrix) {
-  def this(length: Int, width: Int) = this(new Matrix(length, width, Bead(Coord(0, 0), Stitch.Square, Color(255, 255, 255))))
+  def this(length: Int, width: Int, stitch: Stitch.Value) = this(new Matrix(length, width, Bead(Coord(0, 0), stitch, Color(255, 255, 255))))
+
+  val stitch = bead(0,0).beadStitch
 
   val size_rows: Int = beads.size._1
   val size_cols: Int = beads.size._2
@@ -137,14 +147,32 @@ case class Grid(beads:Matrix) {
   def setColumnColor(col:Int, color: Color):Grid = {
     copy(beads.replaceColumnColor(col,color))
   }
+
+  def changeTemplateColor(color: Color):Grid={
+    copy(beads.replaceMatrixColor(color))
+  }
+
   def changeSize(l:Int,w:Int): Grid = copy(new Matrix(l,w,Bead(Coord(0, 0), Stitch.Square, Color(255, 255, 255))))
 
   override def toString: String = {
+
+    if(stitch.equals(Stitch.Brick)){
+      val regex = "x".r
+      val line1 = " x " * size_cols + "\n"
+      val line2 = "x" * size_cols + "\n"
+      var lineseparator = ("-" * beads.bead(0,0).toString.size) * size_cols + "\n"
+      var box = "\n" + ((line1 + line2)* (size_rows/2))
+      if(size_rows%2!=0) {
+        box = box + line1
+      }
+      return box
+      }
+
+
     val regex = "x".r
     val line = "x" * size_cols + "\n"
     var lineseparator = ("-" * beads.bead(0,0).toString.size) * size_cols + "\n"
     var box = "\n" + (line * size_rows)
-
     for (row <- 0 until size_rows) {
       for (col <- 0 until size_cols) {
         lineseparator = ("-" * bead(size_rows-1,size_cols-1).toString.size) * size_cols + "\n"
@@ -154,21 +182,26 @@ case class Grid(beads:Matrix) {
     box
   }
 }
+
+val gridrot = new Grid(5,2,Stitch.Brick)
+
+
 val r = new Matrix(2,2,bead1)
 r.matrix.map(_(0)).map(bead => bead.changeColor(white))
 
-val grid1 = new Grid(2,2)
+val grid1 = new Grid(3,2,Stitch.Square)
 grid1.bead(1,0).beadCoord
 grid1.bead(0,0).isFilled
-val grid2 = grid1.setColor(0,0,red)
-grid1.row(0)
-grid1.row(1)
-grid1.col(0)
-grid1.col(1)
-grid1.col(0).beads(1).beadCoord
-val tq = grid1.changeSize(5,5)
-tq.size_cols
-tq.setColumnColor(1,red)
+val blue = Color(0,0,255)
+val grid2 = grid1.setColor(0,0,red).setColor(1,0,red).setColor(2,0,red)
+
+grid2.col(0)
+
+grid2.col(1)
+
+val coloredcol = grid2.col(1)
+
+grid2.setColumnColor(0,blue)
 
 
 

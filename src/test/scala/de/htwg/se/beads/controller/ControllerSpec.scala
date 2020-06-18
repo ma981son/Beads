@@ -1,6 +1,6 @@
 package de.htwg.se.beads.controller
 
-import de.htwg.se.beads.model.{Color, Template}
+import de.htwg.se.beads.model.{Color, Stitch, Template}
 import de.htwg.se.beads.util.Observer
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
@@ -12,7 +12,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
 
   "A Controller" when {
     "observed by an Observer" should {
-      val temp = new Template(2, 2)
+      val temp = new Template(2, 2,Stitch.Square)
       val controller = new Controller(temp)
       val observer = new Observer {
         var updated: Boolean = false
@@ -20,7 +20,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       }
       controller.add(observer)
       "notify its Observer after creation" in {
-        controller.createEmptyTemplate(2, 2)
+        controller.createEmptyTemplate(2, 2,Stitch.Square)
         observer.updated should be(true)
         controller.temp.size_rows should be(2)
         controller.temp.size_cols should be(2)
@@ -45,7 +45,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       }
     }
     "empty" should {
-      val temp = new Template(2, 2)
+      val temp = new Template(2, 2,Stitch.Square)
       val controller = new Controller(temp)
       "handle undo/redo correctly on an empty undo-stack" in {
         controller.temp.bead(0, 0).isFilled should be(false)

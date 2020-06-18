@@ -9,6 +9,16 @@ case class Matrix(matrix:Vector[Vector[Bead]]) {
     def replaceBead(row:Int, col:Int, cell:Bead):Matrix =
         copy(matrix.updated(row, matrix(row).updated(col, cell)))
 
+    def replaceRowColor(row:Int, color: Color):Matrix =
+        copy(matrix.updated(row,matrix(row).map(bead=>bead.changeColor(color))))
+
+    def replaceColumnColor(col:Int, color: Color):Matrix =
+        copy(matrix.transpose.updated(col,matrix(col).map(bead=>bead.changeColor(color))).transpose)
+
+    def replaceMatrixColor(color: Color):Matrix=
+        copy(matrix.map(vector=>vector.map(bead=>bead.changeColor(color))))
+
     val size: (Int,Int) = (matrix.size,matrix.head.size)
+
     def bead(row:Int, col:Int):Bead = matrix (row)(col)
 }

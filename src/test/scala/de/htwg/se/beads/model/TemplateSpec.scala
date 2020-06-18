@@ -7,7 +7,7 @@ class TemplateSpec extends AnyWordSpec with Matchers {
   "A Template is a Square    of Beads. A Template" when{
     "constructed" should {
       "be created with the length and width of its edges as size" in {
-        val template = new Template(2,3)
+        val template = new Template(2,3,Stitch.Square)
         template.size_cols should be (3)
         template.size_rows should be (2)
       }
@@ -21,7 +21,7 @@ class TemplateSpec extends AnyWordSpec with Matchers {
       }
     }
     "created properly but empty" should {
-      val template = new Template(2, 2)
+      val template = new Template(2, 2,Stitch.Square)
       "give access to ist beads" in {
         template.bead(0, 0) should be(Bead(Coord(0, 0), Stitch.Square, Color(255, 255, 255)))
         template.bead(1, 0) should be(Bead(Coord(1, 0), Stitch.Square, Color(255, 255, 255)))
