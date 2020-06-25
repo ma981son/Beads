@@ -6,7 +6,7 @@ import de.htwg.se.beads.util.{Observable, UndoManager}
 
 class Controller(var temp: Template) extends Observable {
 
-  private val undoManager = new UndoManager
+  private val undoManager: UndoManager = new UndoManager
 
   def createEmptyTemplate(length: Int, width: Int,stitch:Stitch.Value): Unit = {
     undoManager.doStep(new createTemplateCommand(length,width,stitch,this))

@@ -5,7 +5,7 @@ import de.htwg.se.beads.model.{Bead, Color, Coord, Matrix, Stitch, Template, Vek
 var red = Color(255.0,0.0,0.0)
 var white = Color(255,255,255)
 
-object Stitch extends Enumeration {
+private object Stitch extends Enumeration {
   val Brick, Square, Fringe = Value
 }
 
@@ -29,7 +29,7 @@ case class Bead(beadCoord:Coord,
     case _ => false
   }
 
-  def addBeadRight: Bead = {
+  def addBeadRight(): Bead = {
     if (!beadStitch.equals(Stitch.Fringe)) {
       val newBead = Bead(Coord(beadCoord.x + 1, beadCoord.y),beadStitch, beadColor)
       return newBead
@@ -37,7 +37,7 @@ case class Bead(beadCoord:Coord,
     None.get
   }
 
-  def addBeadUp: Bead = {
+  def addBeadUp(): Bead = {
     if (!beadStitch.equals(Stitch.Fringe) && !beadStitch.equals(Stitch.Brick)) {
       val newBead = Bead(Coord(beadCoord.x, beadCoord.y + 1),beadStitch, beadColor)
       return newBead
@@ -45,15 +45,15 @@ case class Bead(beadCoord:Coord,
     None.get
   }
 
-  def addBeadLeft: Bead = {
+  def addBeadLeft(): Bead = {
     if (!beadStitch.equals(Stitch.Fringe)) {return Bead(Coord(beadCoord.x - 1, beadCoord.y),beadStitch,beadColor)}
     None.get
 
   }
 
   override def toString: String = {
-    val standard = Color(255.0,255.0,255.0).toString().size
-    val beadsize = beadColor.toString().size
+    val standard = Color(255.0, 255.0, 255.0).toString().length
+    val beadsize = beadColor.toString().length
     if(beadsize < standard){
       val space = (standard - beadsize) /2
       "| "+ "  " * space + beadColor+ "  " * space + " |"
@@ -63,7 +63,7 @@ case class Bead(beadCoord:Coord,
 
 }
 
-var bead1 = new Bead(Coord(0,0), Stitch.Square, white)
+var bead1 = Bead(Coord(0, 0), Stitch.Square, white)
 
 bead1.beadCoord.x
 bead1 = bead1.changeColor(red)
@@ -72,10 +72,10 @@ bead1.beadColor
 bead1.beadStitch
 bead1 = bead1.changeStitch(Stitch.Brick)
 bead1.beadStitch
-var bead2 = bead1.addBeadRight
+var bead2 = bead1.addBeadRight()
 bead2 = bead2.changeColor(red)
-var bead3 = bead1.addBeadLeft
-bead1.addBeadRight.addBeadLeft
+var bead3 = bead1.addBeadLeft()
+bead1.addBeadRight().addBeadLeft()
 bead1.changeColor(white).toString
 bead2.changeColor(red).toString
 
@@ -87,7 +87,7 @@ case class House(beads:Vector[Bead]){
 }
 
 val t = Vector.fill(2)(bead1)
-val house = new House(t)
+val house = House(t)
 house.colorHouse(white)
 
 implicit class x[A](as: Seq[A]) {
@@ -160,7 +160,6 @@ case class Grid(beads:Matrix) {
       val regex = "x".r
       val line1 = " x " * size_cols + "\n"
       val line2 = "x" * size_cols + "\n"
-      var lineseparator = ("-" * beads.bead(0,0).toString.size) * size_cols + "\n"
       var box = "\n" + ((line1 + line2)* (size_rows/2))
       if(size_rows%2!=0) {
         box = box + line1
@@ -171,11 +170,11 @@ case class Grid(beads:Matrix) {
 
     val regex = "x".r
     val line = "x" * size_cols + "\n"
-    var lineseparator = ("-" * beads.bead(0,0).toString.size) * size_cols + "\n"
+    var lineseparator = ("-" * beads.bead(0, 0).toString.length) * size_cols + "\n"
     var box = "\n" + (line * size_rows)
     for (row <- 0 until size_rows) {
       for (col <- 0 until size_cols) {
-        lineseparator = ("-" * bead(size_rows-1,size_cols-1).toString.size) * size_cols + "\n"
+        lineseparator = ("-" * bead(size_rows - 1, size_cols - 1).toString.length) * size_cols + "\n"
         box = regex.replaceFirstIn(box, bead(row, col).toString)
       }
     }
