@@ -22,8 +22,8 @@ case class Matrix(matrix:Vector[Vector[Bead]]) {
 
     def bead(row:Int, col:Int):Bead = matrix (row)(col)
 }
-object Matrix {
-    import play.api.libs.json._
-    implicit val matrixWrites = Json.writes[Matrix]
-    implicit val matrixReads = Json.reads[Matrix]
-}
+//object Matrix {
+//    import play.api.libs.json._
+//    implicit val matrixWrites = Json.writes[Matrix]
+//    implicit val matrixReads = Json.reads[Matrix]
+//}

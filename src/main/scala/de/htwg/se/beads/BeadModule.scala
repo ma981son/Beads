@@ -11,13 +11,8 @@ import de.htwg.se.beads.model.fileIoComponent.fileIoJsonImpl
 
 class BeadModule extends AbstractModule with ScalaModule {
 
-  val startLength:Int = 10
-  val startWidth:Int = 10
-
   override def configure() = {
-    bindConstant().annotatedWith(Names.named("StartLength")).to(startLength)
-    bindConstant().annotatedWith(Names.named("StartWidth")).to(startWidth)
-    bind[TemplateInterface].to[Template]
+    bind[TemplateInterface].toInstance(new Template(10,10,Stitch.Square))
     bind[ControllerInterface].to[controllerBaseImpl.Controller]
     bind[FileIoInterface].to[fileIoJsonImpl.FileIO]
   }

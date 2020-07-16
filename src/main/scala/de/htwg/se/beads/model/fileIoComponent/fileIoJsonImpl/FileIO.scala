@@ -26,14 +26,14 @@ class FileIO extends FileIoInterface {
       val col = (json \\ "col") (index).as[Int]
       val bead = (json \\ "bead") (index)
 
-      val color = (bead \ "color").as[java.awt.Color]
-      temp = temp.setColor(row, col, color)
+      //val color = (bead \ "color").as[java.awt.Color]
+      //temp = temp.setColor(row, col, color)
     }
     temp
   }
 
   implicit val ColorWrites = Writes[java.awt.Color] { c =>
-    JsString("#%02x%02x%02x" format (c.getRed, c.getGreen, c.getBlue))
+    JsString("#%02x%02x%02x" format(c.getRed, c.getGreen, c.getBlue))
   }
 
   override def save(temp: TemplateInterface): Unit = {
@@ -69,28 +69,6 @@ class FileIO extends FileIoInterface {
         )
       )
     )
-  }
-
-  import com.fasterxml.jackson.core.JsonParser
-  import javax.swing.tree.TreeNode
-  import java.io.IOException
-
-
-  class ColorSerializer extends JsonSerializer[java.awt.Color] {
-    def serialize(value: java.awt.Color, gen: JsonGenerator, serializers: SerializerProvider): Unit = {
-      gen.writeStartObject
-      gen.writeFieldName("argb")
-      gen.writeString(Integer.toHexString(value.getRGB))
-      gen.writeEndObject
-    }
-  }
-
-  class ColorDeserializer extends JsonDeserializer[java.awt.Color] {
-    def deserialize(p: JsonParser, ctxt: DeserializationContext): Unit = {
-      //val root = p.getCodec.readTree(p).get("argb")
-      //val rgba: TextNode = p.getCodec.readTree(p).get("argb").asInstanceOf
-      //new Color(Integer.parseUnsignedInt(rgba.textValue, 16), true)
-    }
   }
 }
 
