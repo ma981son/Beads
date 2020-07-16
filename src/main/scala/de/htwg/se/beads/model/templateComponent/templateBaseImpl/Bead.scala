@@ -64,7 +64,7 @@ object Bead {
   }
 
   implicit val colorReads :Reads[java.awt.Color] = { c =>
-    mapper.readValue(c,classOf[java.awt.Color])
+    //TODO
   }
 
   implicit val beadWrites : Writes[Bead] = (
