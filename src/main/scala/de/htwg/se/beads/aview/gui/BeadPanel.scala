@@ -17,14 +17,7 @@ class BeadPanel(row: Int, column: Int, controller: ControllerInterface) extends 
 
     def beadText(row: Int, col: Int) = controller.bead(row, col).toString
 
-//    var label =
-//      new Label {
-//        text = beadText(row, column)
-//        //font = new Font("Verdana",1,36)
-//      }
-
-
-    val cell = new BoxPanel(Orientation.Vertical) {
+    val bead = new Button {
      // contents += label
       preferredSize = new Dimension(50, 30)
       border = Swing.BeveledBorder(Swing.Raised)
@@ -48,7 +41,7 @@ class BeadPanel(row: Int, column: Int, controller: ControllerInterface) extends 
       contents.clear()
       //label.text = beadText(row, column)
       background = myBead.beadColor
-      contents += cell
+      contents += bead
       repaint
     }
 }

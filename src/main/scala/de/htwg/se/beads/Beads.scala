@@ -11,9 +11,7 @@ import scala.io.StdIn.readLine
 import scala.de.htwg.se.beads.aview.gui.SwingGUI
 
 object Beads {
-  val injector = Guice.createInjector(new BeadModule)
-  val controller = injector.getInstance(classOf[ControllerInterface])
-  //val controller = new Controller(new Template(10,10,Stitch.Square))
+  val controller = new Controller(new Template(10,10,Stitch.Square))
   val tui = new Tui(controller)
   val gui = new SwingGUI(controller)
 

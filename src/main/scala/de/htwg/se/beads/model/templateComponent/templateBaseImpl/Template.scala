@@ -79,8 +79,4 @@ case class Template@Inject()(beads:Matrix) extends TemplateInterface{
     String.strategy
   }
 }
-object Template {
-  import play.api.libs.json._
-  implicit val templateWrites = Json.writes[Template]
-  implicit val templateReads = Json.reads[Template]
-}
+

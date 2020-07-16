@@ -39,58 +39,9 @@ case class Bead(beadCoord:Coord,
   def addBeadLeft(): Bead = {Bead(Coord(beadCoord.x - 1, beadCoord.y),beadStitch,beadColor)}
 
   override def toString: String = {
-   // s"|${rgbToAnsi.colors(beadColor)}    $RESET|"
+    if(awtColorToAnsi.colors.contains(beadColor)){
+       return s"|${awtColorToAnsi.colors(beadColor)}    $RESET|"
+    }
     s"|$beadColor    $RESET|"
   }
-}
-
-object Bead {
-  import play.api.libs.json._
-
-
-
-  implicit val coordReads: Reads[Coord]=Json.reads[Coord]
-  implicit val coordWrites: Writes[Coord]= Json.writes[Coord]
-
-  implicit val stitchReads: Reads[Stitch.Value] = Reads.enumNameReads(Stitch)
-  val mapper = new ObjectMapper()
-  val module = new SimpleModule()
-  module.addSerializer(classOf[java.awt.Color], ColorJsonSerializer)
-  module.addDeserializer(classOf[java.awt.Color], ColorJsonDeserializer)
-  mapper.registerModule(module)
-
-  implicit val ColorWrites = Writes[java.awt.Color] { c =>
-    JsString("#%02x%02x%02x%02x" format (c.getRed, c.getGreen, c.getBlue, c.getAlpha))
-  }
-
-  implicit val colorReads :Reads[java.awt.Color] = { c =>
-    //TODO
-  }
-
-  implicit val beadWrites : Writes[Bead] = (
-    (JsPath\"beadCoord").write[Coord] and
-      (JsPath\"beadstitch").write[Stitch.Value] and
-      (JsPath\"beadColor").write[java.awt.Color]
-  )(unlift(Bead.unapply))
-
-  implicit val beadReads:Reads[Bead] = (
-    (JsPath\"beadCoord").read[Coord] and
-      (JsPath\"beadstitch").read[Stitch.Value] and
-      (JsPath\"beadColor").read[java.awt.Color]
-    )(Bead.apply _)
-
-}
-
-object ColorJsonSerializer extends JsonSerializer[java.awt.Color] {
-  override def serialize(value:java.awt.Color,gen: JsonGenerator,serialize: SerializerProvider): Any ={
-    if(value == null){
-      gen.writeNull()
-      return
-    }
-    gen.writeNumber(value.getRGB)
-  }
-}
-
-object ColorJsonDeserializer extends JsonDeserializer[java.awt.Color]{
-  override def deserialize(p: JsonParser, ctxt: DeserializationContext): awt.Color = new awt.Color(p.getValueAsInt())
 }

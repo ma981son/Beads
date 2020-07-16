@@ -23,9 +23,6 @@ trait ControllerInterface extends Publisher{
   def undo():Unit
   def redo():Unit
 
-  def save():Unit
-  def load():Unit
-
   def bead(row:Int, col:Int):BeadInterface
 
   def isFilled(row:Int, col:Int):Boolean
