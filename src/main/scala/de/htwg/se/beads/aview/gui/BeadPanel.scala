@@ -7,7 +7,7 @@ import scala.swing._
 import javax.swing.table._
 
 import scala.swing.event._
-import scala.de.htwg.se.beads.aview.gui.selectColor
+
 
 
 class BeadPanel(row: Int, column: Int, controller: ControllerInterface) extends FlowPanel {

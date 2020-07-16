@@ -4,7 +4,9 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import java.awt.Color._
 
-import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Bead, Coord, Stitch}
+import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Bead, Coord, Stitch, awtColorToAnsi}
+
+import scala.io.AnsiColor.RESET
 
 class BeadSpec extends AnyWordSpec with Matchers {
 
@@ -78,7 +80,13 @@ class BeadSpec extends AnyWordSpec with Matchers {
       "have a String and" should {
         val string = bead.toString
         "return string" in {
-          string should be("|\u001B[47m   \u001B[0m|")
+          if (awtColorToAnsi.colors.contains(bead.beadColor)){
+            string should be(s"|${awtColorToAnsi.colors(bead.beadColor)}    $RESET|")
+          }else{
+            string should be(bead.beadColor.toString)
+          }
+
+
         }
       }
     }

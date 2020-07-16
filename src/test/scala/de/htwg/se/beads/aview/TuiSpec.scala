@@ -16,7 +16,7 @@ class TuiSpec extends AnyWordSpec with Matchers {
     }
     "set a bead color on intput '0 0 red'" in{
       tui.processInputLine("0 0 red")
-      controller.temp.bead(0,0).beadColor should be(Color(255,0,0))
+      controller.temp.bead(0,0).beadColor should be(java.awt.Color.RED)
     }
   }
 }
