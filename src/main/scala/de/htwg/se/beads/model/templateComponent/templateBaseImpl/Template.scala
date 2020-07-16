@@ -1,7 +1,12 @@
-package de.htwg.se.beads.model
+package de.htwg.se.beads.model.templateComponent.templateBaseImpl
 
-case class Template(beads:Matrix) {
-  def this(length: Int, width: Int, stitch: Stitch.Value) = this(new Matrix(length, width, Bead(Coord(0, 0), stitch, Color(255, 255, 255))))
+import java.awt.Color.WHITE
+
+import com.google.inject.Inject
+import de.htwg.se.beads.model.templateComponent.TemplateInterface
+
+case class Template@Inject()(beads:Matrix) extends TemplateInterface{
+  def this(length: Int, width: Int, stitch: Stitch.Value) = this(new Matrix(length, width, Bead(Coord(0, 0), stitch, WHITE)))
 
   val stitch = bead(0, 0).beadStitch
   val size_rows: Int = beads.size._1
@@ -9,28 +14,28 @@ case class Template(beads:Matrix) {
 
   def bead(row: Int, col: Int): Bead = beads.bead(row, col)
 
-  def setColor(row: Int, col: Int, color: Color): Template = {
+  def setColor(row: Int, col: Int, color: java.awt.Color): Template = {
     val oldbead = bead(row, col)
     copy(beads.replaceBead(row, col, new Bead(oldbead.beadCoord, oldbead.beadStitch, color)))
   }
 
-  def changeSize(l: Int, w: Int): Template = copy(new Matrix(l, w, Bead(Coord(0, 0), Stitch.Square, Color(255, 255, 255))))
+  def changeSize(l: Int, w: Int): Template = copy(new Matrix(l, w, Bead(Coord(0, 0), Stitch.Square, WHITE)))
 
-  def changeTemplate(l: Int, w: Int, stitch: Stitch.Value): Template = copy(new Matrix(l, w,Bead(Coord(0, 0), stitch, Color(255, 255, 255))))
+  def newTemplate(l: Int, w: Int, stitch: Stitch.Value): Template = copy(new Matrix(l, w,Bead(Coord(0, 0), stitch, WHITE)))
 
   def row(row: Int): Vektor = Vektor(beads.matrix(row))
 
-  def setRowColor(row: Int, color: Color): Template = {
+  def setRowColor(row: Int, color: java.awt.Color): Template = {
     copy(beads.replaceRowColor(row, color))
   }
 
   def col(col: Int): Vektor = Vektor(beads.matrix.map(row => row(col)))
 
-  def setColumnColor(col: Int, color: Color): Template = {
+  def setColumnColor(col: Int, color: java.awt.Color): Template = {
     copy(beads.replaceColumnColor(col, color))
   }
 
-  def changeTemplateColor(color: Color): Template = {
+  def changeTemplateColor(color: java.awt.Color): Template = {
     copy(beads.replaceMatrixColor(color))
   }
 
@@ -73,7 +78,9 @@ case class Template(beads:Matrix) {
   override def toString: String = {
     String.strategy
   }
-
-
-
+}
+object Template {
+  import play.api.libs.json._
+  implicit val templateWrites = Json.writes[Template]
+  implicit val templateReads = Json.reads[Template]
 }

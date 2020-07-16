@@ -1,4 +1,5 @@
-import de.htwg.se.beads.model.{Color, Coord, Stitch}
+import de.htwg.se.beads.model.Coord
+import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Color, Coord, Stitch}
 import jdk.javadoc.internal.doclets.formats.html.resources.standard
 
 import scala.collection.immutable.Vector

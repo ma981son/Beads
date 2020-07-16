@@ -1,9 +1,11 @@
-package de.htwg.se.beads.controller
-import de.htwg.se.beads.model.{Color, Template}
+package de.htwg.se.beads.controller.controllerComponent.controllerBaseImpl
+
+import de.htwg.se.beads.model.templateComponent.TemplateInterface
+import de.htwg.se.beads.model.templateComponent.templateBaseImpl.Template
 import de.htwg.se.beads.util.Command
 
-class SetColorCommand(row:Int, col:Int, color: Color, controller: Controller) extends Command {
-  var memento:Template = controller.temp
+class SetColorCommand(row:Int, col:Int, color: java.awt.Color, controller: Controller) extends Command {
+  var memento:TemplateInterface = controller.temp
 
   override def doStep(): Unit = controller.temp = controller.temp.setColor(row,col,color)
 

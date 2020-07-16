@@ -1,9 +1,12 @@
 package de.htwg.se.beads.controller
 
-import de.htwg.se.beads.model.{Color, Stitch, Template}
 import de.htwg.se.beads.util.Observer
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
+import java.awt.Color._
+
+import de.htwg.se.beads.controller.controllerComponent.controllerBaseImpl.Controller
+import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Color, Stitch, Template}
 
 import scala.language.reflectiveCalls
 
@@ -18,7 +21,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         var updated: Boolean = false
         override def update(): Boolean = {updated = true; updated}
       }
-      controller.add(observer)
+
       "notify its Observer after creation" in {
         controller.createEmptyTemplate(2, 2,Stitch.Square)
         observer.updated should be(true)
@@ -32,7 +35,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         controller.temp.size_cols should be(3)
       }
       "notify its Observer after changing the color of a bead" in {
-        controller.setColor(0, 0, Color(255, 0, 0))
+        controller.setColor(0, 0, WHITE)
         observer.updated should be(true)
         controller.temp.bead(0, 0).beadColor should be(Color(255, 0, 0))
       }
@@ -55,18 +58,18 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         controller.temp.bead(0, 0).isFilled should be(false)
       }
       "handle undo/redo of setting a bead Color correctly" in {
-        controller.setColor(0, 0, Color(255, 255, 255))
+        controller.setColor(0, 0, WHITE)
         controller.temp.bead(0, 0).isFilled should be(false)
-        controller.temp.bead(0, 0).beadColor should be(Color(255, 255, 255))
-        controller.setColor(0, 0, Color(255, 0, 0))
+        controller.temp.bead(0, 0).beadColor should be(WHITE)
+        controller.setColor(0, 0, RED)
         controller.temp.bead(0, 0).isFilled should be(true)
-        controller.temp.bead(0, 0).beadColor should be(Color(255, 0, 0))
+        controller.temp.bead(0, 0).beadColor should be(RED)
         controller.undo()
         controller.temp.bead(0, 0).isFilled should be(false)
-        controller.temp.bead(0, 0).beadColor should be(Color(255, 255, 255))
+        controller.temp.bead(0, 0).beadColor should be(WHITE)
         controller.redo()
         controller.temp.bead(0, 0).isFilled should be(true)
-        controller.temp.bead(0, 0).beadColor should be(Color(255, 0, 0))
+        controller.temp.bead(0, 0).beadColor should be(RED)
       }
     }
   }

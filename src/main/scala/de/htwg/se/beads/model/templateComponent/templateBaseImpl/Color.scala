@@ -1,7 +1,7 @@
-package de.htwg.se.beads.model
+package de.htwg.se.beads.model.templateComponent.templateBaseImpl
 
 import scala.collection.immutable.Map
-import io.AnsiColor._
+import scala.io.AnsiColor._
 
 object stringToAnsi{
   val colors: Map[String, String] = Map("black" -> BLACK_B, "red" -> RED_B, "green" -> GREEN_B,

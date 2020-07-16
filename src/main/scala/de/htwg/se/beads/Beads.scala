@@ -1,16 +1,21 @@
 package de.htwg.se.beads
 
+import com.google.inject.Guice
 import de.htwg.se.beads.aview.Tui
-import de.htwg.se.beads.controller.Controller
-import de.htwg.se.beads.model.{Stitch, Template}
+import de.htwg.se.beads.controller.controllerComponent.ControllerInterface
+import de.htwg.se.beads.controller.controllerComponent.controllerBaseImpl.Controller
+import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Stitch, Template}
 
 import scala.io.AnsiColor._
 import scala.io.StdIn.readLine
+import scala.de.htwg.se.beads.aview.gui.SwingGUI
 
 object Beads {
-  val controller = new Controller(new Template(1,6,Stitch.Square))
+  val injector = Guice.createInjector(new BeadModule)
+  val controller = injector.getInstance(classOf[ControllerInterface])
+  //val controller = new Controller(new Template(10,10,Stitch.Square))
   val tui = new Tui(controller)
-  controller.notifyObservers()
+  val gui = new SwingGUI(controller)
 
   def main(args:Array[String]): Unit = {
     var input:String = ""

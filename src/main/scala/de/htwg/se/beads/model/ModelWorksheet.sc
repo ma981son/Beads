@@ -1,6 +1,7 @@
 import scala.collection.immutable.Vector
 import scala.io.AnsiColor.RESET
-import de.htwg.se.beads.model.{Bead, Color, Coord, Matrix, Stitch, Template, Vektor, rgbToAnsi}
+import de.htwg.se.beads.model.Vektor
+import de.htwg.se.beads.model.templateComponent.templateBaseImpl.Color
 
 var red = Color(255.0,0.0,0.0)
 var white = Color(255,255,255)
