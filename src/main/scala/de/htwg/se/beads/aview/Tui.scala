@@ -1,7 +1,6 @@
 package de.htwg.se.beads.aview
 
 import de.htwg.se.beads.controller.controllerComponent.{BeadChanged, ControllerInterface}
-import de.htwg.se.beads.controller.controllerComponent.controllerBaseImpl.Controller
 import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Stitch, stringToAnsi}
 
 import scala.io.StdIn.readLine
@@ -10,8 +9,8 @@ import scala.swing.Reactor
 class Tui (controller: ControllerInterface) extends Reactor {
 
   listenTo(controller)
-  def length = controller.tempLength
-  def width = controller.tempWidth
+  def length: Int = controller.tempLength
+  def width: Int = controller.tempWidth
 
   def processInputSizeLine(input: String): Unit = {
     input match {
@@ -70,7 +69,7 @@ class Tui (controller: ControllerInterface) extends Reactor {
         val colo = stringToAnsi.colors(c)
         List(a, b).filter(t => t != ' ').map(t => t.toInt) match {
           case row :: column :: Nil =>
-          //controller.setColor(row, column, rgbToAnsi.colors.map(_.swap)(colo))
+          controller.setColor(row, column, rgbToAnsi.colors.map(_.swap)(colo))
           case _ =>
         }
     }
@@ -78,10 +77,10 @@ class Tui (controller: ControllerInterface) extends Reactor {
 
 
   reactions += {
-    case event: BeadChanged => printTui
+    case event: BeadChanged => printTui()
   }
 
-  def printTui: Unit = {
+  def printTui(): Unit = {
     println(controller.tempToString)
   }
 }
