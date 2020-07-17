@@ -14,37 +14,29 @@ import scala.language.reflectiveCalls
 class ControllerSpec extends AnyWordSpec with Matchers {
 
   "A Controller" when {
-    "observed by an Observer" should {
+    "empty" should {
       val temp = new Template(2, 2,Stitch.Square)
       val controller = new Controller(temp)
-      val observer = new Observer {
-        var updated: Boolean = false
-        override def update(): Boolean = {updated = true; updated}
-      }
-
-      "notify its Observer after creation" in {
+      "handle template size correctly" in {
         controller.createEmptyTemplate(2, 2,Stitch.Square)
-        observer.updated should be(true)
         controller.temp.size_rows should be(2)
         controller.temp.size_cols should be(2)
       }
-      "notify its Observer after change in size" in {
+      "change size correctly" in {
         controller.changeSize(2, 3)
-        observer.updated should be(true)
         controller.temp.size_rows should be(2)
         controller.temp.size_cols should be(3)
       }
-      "notify its Observer after changing the color of a bead" in {
+      "change the color of a bead" in {
         controller.setColor(0, 0, WHITE)
-        observer.updated should be(true)
-        controller.temp.bead(0, 0).beadColor should be(Color(255, 0, 0))
+        controller.temp.bead(0, 0).beadColor should be(java.awt.Color.WHITE)
       }
       "have a String" in {
-        controller.tempToString should be("\n---------------" +
-          "\n|\u001B[41m   \u001B[0m||\u001B[47m   \u001B[0m||\u001B[47m   \u001B[0m|" +
-          "\n---------------" +
-          "\n|\u001B[47m   \u001B[0m||\u001B[47m   \u001B[0m||\u001B[47m   \u001B[0m|" +
-          "\n---------------\n")
+        controller.tempToString should be("\n------------------" +
+          "\n|\u001B[47m    \u001B[0m||\u001B[47m    \u001B[0m||\u001B[47m    \u001B[0m|" +
+          "\n------------------" +
+          "\n|\u001B[47m    \u001B[0m||\u001B[47m    \u001B[0m||\u001B[47m    \u001B[0m|" +
+          "\n------------------\n")
       }
     }
     "empty" should {
