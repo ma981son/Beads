@@ -1,16 +1,12 @@
 package de.htwg.se.beads.controller.controllerComponent.controllerBaseImpl
 
-import com.google.inject.name.Names
-import com.google.inject.{Guice, Inject}
-import com.sun.jdi.ClassObjectReference
+import com.google.inject.{Guice, Inject, Injector}
 import de.htwg.se.beads.BeadModule
 import de.htwg.se.beads.controller.controllerComponent.{BeadChanged, ControllerInterface, TemplateChanged}
-import de.htwg.se.beads.model.templateComponent.TemplateInterface
-import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Stitch, Template}
-import de.htwg.se.beads.util.UndoManager
 import de.htwg.se.beads.model.fileIoComponent.FileIoInterface
-import de.htwg.se.beads.model.fileIoComponent.fileIoJsonImpl.FileIO
-import de.htwg.se.beads.model.fileIoComponent.fileIoXmlImpl
+import de.htwg.se.beads.model.templateComponent.{BeadInterface, TemplateInterface}
+import de.htwg.se.beads.model.templateComponent.templateBaseImpl.Stitch
+import de.htwg.se.beads.util.UndoManager
 
 import scala.swing.Publisher
 
@@ -18,12 +14,12 @@ import scala.swing.Publisher
 class Controller@Inject()(var temp: TemplateInterface) extends ControllerInterface with Publisher {
 
   private val undoManager: UndoManager = new UndoManager
-  val injector = Guice.createInjector(new BeadModule)
-  val fileIo = injector.getInstance(classOf[FileIoInterface])
+  val injector: Injector = Guice.createInjector(new BeadModule)
+  val fileIo: FileIoInterface = injector.getInstance(classOf[FileIoInterface])
 
   def createEmptyTemplate(length: Int, width: Int,stitch:Stitch.Value): Unit = {
     undoManager.doStep(new createTemplateCommand(length,width,stitch,this))
-    publish(new TemplateChanged(length,width,stitch))
+    publish(TemplateChanged(length, width, stitch))
   }
 
   def tempToString: String = temp.toString
@@ -73,8 +69,8 @@ class Controller@Inject()(var temp: TemplateInterface) extends ControllerInterfa
     publish(new BeadChanged)
   }
 
-  def bead(row:Int, col:Int) = temp.bead(row,col)
+  def bead(row:Int, col:Int): BeadInterface = temp.bead(row,col)
   def isFilled(row:Int, col:Int):Boolean = temp.bead(row, col).isFilled
-  def tempLength = temp.size_rows
-  def tempWidth = temp.size_cols
+  def tempLength: Int = temp.size_rows
+  def tempWidth: Int = temp.size_cols
 }
