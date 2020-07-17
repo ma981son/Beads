@@ -1,7 +1,7 @@
 package de.htwg.se.beads.aview
 
 import de.htwg.se.beads.controller.controllerComponent.{BeadChanged, ControllerInterface}
-import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Stitch, stringToAnsi}
+import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Stitch, awtColorToAnsi, stringToAnsi}
 
 import scala.io.StdIn.readLine
 import scala.swing.Reactor
@@ -47,7 +47,7 @@ class Tui (controller: ControllerInterface) extends Reactor {
         val Array(a, b) = inputSize.split(" ")
         val colo = stringToAnsi.colors(b)
         List(a).filter(t => t != ' ').map(t => t.toInt) match {
-          case row :: Nil => //controller.changeRowColor(row, rgbToAnsi.colors.map(_.swap)(colo))
+          case row :: Nil => controller.changeRowColor(row, awtColorToAnsi.colors.map(_.swap)(colo))
           case _ =>
         }
       case "c" =>
@@ -56,7 +56,7 @@ class Tui (controller: ControllerInterface) extends Reactor {
         val Array(a, b) = inputSize.split(" ")
         val colo = stringToAnsi.colors(b)
         List(a).filter(t => t != ' ').map(t => t.toInt) match {
-          case row :: Nil => //controller.changeColumnColor(row, rgbToAnsi.colors.map(_.swap)(colo))
+          case row :: Nil => controller.changeColumnColor(row, awtColorToAnsi.colors.map(_.swap)(colo))
           case _ =>
         }
       case "f" =>
@@ -69,7 +69,7 @@ class Tui (controller: ControllerInterface) extends Reactor {
         val colo = stringToAnsi.colors(c)
         List(a, b).filter(t => t != ' ').map(t => t.toInt) match {
           case row :: column :: Nil =>
-          controller.setColor(row, column, rgbToAnsi.colors.map(_.swap)(colo))
+          controller.setColor(row, column, awtColorToAnsi.colors.map(_.swap)(colo))
           case _ =>
         }
     }
