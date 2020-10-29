@@ -24,15 +24,15 @@ object Beads {
     print(s"${CYAN}cyan$RESET, ${WHITE}white$RESET\n")
 
 
-    print("Enter Template length,witdth and stitch: ")
-    inputSize = readLine()
-    tui.processInputSizeLine(inputSize)
-
-    if (args.length>0) input=args(0)
-    if (!input.isEmpty) tui.processInputLine(input)
-    else do{
-      input = readLine()
-      tui.processInputLine(input)
-    }while(input != "q")
+//    print("Enter Template length,witdth and stitch: ")
+//    inputSize = readLine()
+//    tui.processInputSizeLine(inputSize)
+//
+//    if (args.length>0) input=args(0)
+//    if (!input.isEmpty) tui.processInputLine(input)
+//    else do{
+//      input = readLine()
+//      tui.processInputLine(input)
+//    }while(input != "q")
   }
 }

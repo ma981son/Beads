@@ -2,7 +2,7 @@ package de.htwg.se.beads.controller.controllerComponent.controllerBaseImpl
 
 import com.google.inject.name.Names
 import com.google.inject.{Guice, Inject}
-import com.sun.jdi.ClassObjectReference
+
 import de.htwg.se.beads.BeadModule
 import de.htwg.se.beads.controller.controllerComponent.{BeadChanged, ControllerInterface, TemplateChanged}
 import de.htwg.se.beads.model.templateComponent.TemplateInterface
@@ -36,6 +36,12 @@ class Controller@Inject()(var temp: TemplateInterface) extends ControllerInterfa
   def changeSize(length: Int, width: Int): Unit = {
     temp = temp.changeSize(length, width)
     publish(new BeadChanged)
+  }
+
+  def changeStitch(stitch: Stitch.Value)={
+    undoManager.doStep(new createTemplateCommand(tempLength,tempWidth,stitch,this))
+   // temp = temp.newTemplate(tempLength,tempWidth,stitch)
+    publish(new TemplateChanged(tempLength,tempWidth,stitch))
   }
 
   def changeRowColor(row:Int,color: java.awt.Color):Unit={

@@ -19,7 +19,7 @@ case class Template@Inject()(beads:Matrix) extends TemplateInterface{
     copy(beads.replaceBead(row, col, new Bead(oldbead.beadCoord, oldbead.beadStitch, color)))
   }
 
-  def changeSize(l: Int, w: Int): Template = copy(new Matrix(l, w, Bead(Coord(0, 0), Stitch.Square, WHITE)))
+  def changeSize(l: Int, w: Int): Template = copy(new Matrix(l, w, Bead(Coord(0, 0), this.stitch, WHITE)))
 
   def newTemplate(l: Int, w: Int, stitch: Stitch.Value): Template = copy(new Matrix(l, w,Bead(Coord(0, 0), stitch, WHITE)))
 

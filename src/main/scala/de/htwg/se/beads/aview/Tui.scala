@@ -1,6 +1,6 @@
 package de.htwg.se.beads.aview
 
-import de.htwg.se.beads.controller.controllerComponent.{BeadChanged, ControllerInterface}
+import de.htwg.se.beads.controller.controllerComponent.{BeadChanged, ControllerInterface, TemplateChanged}
 import de.htwg.se.beads.controller.controllerComponent.controllerBaseImpl.Controller
 import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Stitch, stringToAnsi}
 
@@ -79,6 +79,7 @@ class Tui (controller: ControllerInterface) extends Reactor {
 
   reactions += {
     case event: BeadChanged => printTui
+    case event: TemplateChanged => printTui
   }
 
   def printTui: Unit = {

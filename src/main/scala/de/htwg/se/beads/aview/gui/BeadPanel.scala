@@ -13,20 +13,14 @@ class BeadPanel(row: Int, column: Int, controller: ControllerInterface) extends 
 
     def beadText(row: Int, col: Int) = controller.bead(row, col).toString
 
-    val cell = new Button {
+    val bead = new Button {
       preferredSize = new Dimension(50, 30)
       border = Swing.BeveledBorder(Swing.Raised)
       foreground = myBead.beadColor
-      listenTo(mouse.clicks)
-      listenTo(controller)
+      listenTo(mouse.clicks,mouse.moves,controller)
       reactions += {
         case e: BeadChanged => {
           background = myBead.beadColor
-          repaint
-        }
-        case MouseClicked(src, pt, mod, clicks, pops) => {
-          controller.setColor(row, column, selectColor.selColor)
-          foreground = myBead.beadColor
           repaint
         }
       }
@@ -36,7 +30,7 @@ class BeadPanel(row: Int, column: Int, controller: ControllerInterface) extends 
       contents.clear()
       //label.text = beadText(row, column)
       foreground = myBead.beadColor
-      contents += cell
+      contents += bead
       repaint
     }
 }

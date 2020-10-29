@@ -14,6 +14,7 @@ trait ControllerInterface extends Publisher{
 
   def changeSize(length: Int, width: Int): Unit
 
+  def changeStitch(stitch: Stitch.Value):Unit
   def changeRowColor(row:Int,color: java.awt.Color):Unit
 
   def changeColumnColor(col:Int,color: java.awt.Color):Unit
