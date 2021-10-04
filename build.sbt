@@ -16,9 +16,9 @@ libraryDependencies += "org.scoverage" %% "scalac-scoverage-plugin" % "1.4.1" % 
 
 libraryDependencies += "org.scala-lang.modules" %% "scala-swing" % "2.1.1"
 
-libraryDependencies += "com.google.inject" % "guice" % "4.2.2"
+libraryDependencies += "com.google.inject" % "guice" % "5.0.1"
 
-libraryDependencies += "net.codingwell" %% "scala-guice" % "4.2.11"
+libraryDependencies += "net.codingwell" %% "scala-guice" % "4.2.10"
 
 libraryDependencies += "org.scala-lang.modules" % "scala-xml_2.12" % "2.0" % "scala-guice_2.13-4.2.10.pom "
 

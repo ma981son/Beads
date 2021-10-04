@@ -1,16 +1,13 @@
 package de.htwg.se.beads.model.templateComponent.templateBaseImpl
 
 
-import java.awt.Color._
-
 import de.htwg.se.beads.model.templateComponent.BeadInterface
 
+import scala.io.AnsiColor.RESET
 import scala.language.postfixOps
 
-import scala.io.AnsiColor.RESET
-
 object Stitch extends Enumeration {
-  val Brick, Square, Fringe = Value
+  val Brick, Square, Fringe, Huichol_3, Huichol_5, Brazil = Value
 }
 
 case class Bead(beadCoord:Coord,
