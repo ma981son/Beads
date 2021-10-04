@@ -29,6 +29,8 @@ trait ControllerInterface extends Publisher{
 
   def bead(row:Int, col:Int):BeadInterface
 
+  def stitch:Stitch.Value
+
   def isFilled(row:Int, col:Int):Boolean
 
   def tempLength:Int

@@ -2,9 +2,8 @@ package de.htwg.se.beads.controller.controllerComponent.controllerBaseImpl
 
 import com.google.inject.name.Names
 import com.google.inject.{Guice, Inject}
-
 import de.htwg.se.beads.BeadModule
-import de.htwg.se.beads.controller.controllerComponent.{BeadChanged, ControllerInterface, TemplateChanged}
+import de.htwg.se.beads.controller.controllerComponent.{BeadChanged, ControllerInterface, TemplateChanged, TemplateSizeChanged}
 import de.htwg.se.beads.model.templateComponent.TemplateInterface
 import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Stitch, Template}
 import de.htwg.se.beads.util.UndoManager
@@ -35,7 +34,7 @@ class Controller@Inject()(var temp: TemplateInterface) extends ControllerInterfa
 
   def changeSize(length: Int, width: Int): Unit = {
     temp = temp.changeSize(length, width)
-    publish(new BeadChanged)
+    publish(new TemplateSizeChanged(length,width))
   }
 
   def changeStitch(stitch: Stitch.Value)={
@@ -80,6 +79,7 @@ class Controller@Inject()(var temp: TemplateInterface) extends ControllerInterfa
   }
 
   def bead(row:Int, col:Int) = temp.bead(row,col)
+  def stitch = temp.stitch
   def isFilled(row:Int, col:Int):Boolean = temp.bead(row, col).isFilled
   def tempLength = temp.size_rows
   def tempWidth = temp.size_cols

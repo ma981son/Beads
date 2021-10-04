@@ -10,6 +10,7 @@ import scala.swing.Reactor
 class Tui (controller: ControllerInterface) extends Reactor {
 
   listenTo(controller)
+
   def length = controller.tempLength
   def width = controller.tempWidth
 

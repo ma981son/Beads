@@ -1,6 +1,6 @@
 package de.htwg.se.beads.model.templateComponent
 
-import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Stitch, Vektor}
+import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Coord, Stitch, Vektor}
 
 trait TemplateInterface {
 
@@ -32,6 +32,7 @@ trait BeadInterface {
 
   val beadColor:java.awt.Color
   val beadStitch:Stitch.Value
+  val beadCoord:Coord
 
   def isFilled: Boolean
 

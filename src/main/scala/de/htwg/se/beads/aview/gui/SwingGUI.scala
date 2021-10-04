@@ -3,14 +3,14 @@ package de.htwg.se.beads.aview.gui
 import java.awt.Color._
 import java.awt.Dimension
 
-import de.htwg.se.beads.controller.controllerComponent.{BeadChanged, ControllerInterface, TemplateChanged}
+import de.htwg.se.beads.Beads.controller
+import de.htwg.se.beads.controller.controllerComponent.{BeadChanged, ControllerInterface, TemplateChanged, TemplateSizeChanged}
 import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Stitch, Template}
-import javax.swing.colorchooser.AbstractColorChooserPanel
-import javax.swing.{JFrame, JLabel, JPanel, JTextField}
 
-import scala.swing.Swing.LineBorder
+import scala.swing.MenuBar.NoMenuBar.revalidate
 import scala.swing._
 import scala.swing.event._
+
 
 class BeadClicked(val row:Int, val column:Int) extends Event
 
@@ -18,18 +18,70 @@ class SwingGUI(controller: ControllerInterface) extends Frame {
 
   title = "HTWG Beads"
 
-  contents = new BoxPanel(Orientation.Horizontal) {
-    contents += new Label("Look at me")
-    contents += Swing.HStrut(10)
-    contents += Swing.Glue
-    contents += new Button("Press me please") {println("thank you")}
-    contents += Swing.HStrut(10)
-    contents += Swing.Glue
+    val tempPanel = new TemplatePanel(controller)
+    val patternProp = new PatternPropPanel(controller)
 
-    contents += new PatternPropPanel(controller)
-
-    border = Swing.EmptyBorder(10,10,10,10)
+  menuBar = new MenuBar {
+    contents += new Menu("File") {
+      mnemonic = Key.F
+      contents += new MenuItem(Action("New") {
+        controller.createEmptyTemplate(controller.tempLength, controller.tempWidth, controller.stitch)
+      })
+      contents += new MenuItem(Action("Quit") {
+        System.exit(0)
+      })
+    }
+    contents += new Menu("Edit") {
+      mnemonic = Key.E
+      contents += new MenuItem(Action("Undo") {
+        controller.undo
+      })
+      contents += new MenuItem(Action("Redo") {
+        controller.redo
+      })
+    }
   }
 
-  visible=true
+  redraw
+  visible = true
+
+
+  reactions += {
+    case event: TemplateChanged => redraw
+    case event: BeadChanged => redraw
+    case event: TemplateSizeChanged => redraw
+  }
+
+  def redraw={
+    contents = new BoxPanel(Orientation.Horizontal){
+      contents += new GridBagPanel{
+        def constraints(x: Int, y: Int, gridwidth: Int = 1, gridheight: Int = 1,
+            weightx: Double = 0.0, weighty: Double = 0.0,fill: GridBagPanel.Fill.Value = GridBagPanel.Fill.None)
+      : Constraints = {
+        val c = new Constraints
+        c.gridx = x
+        c.gridy = y
+        c.gridwidth = gridwidth
+        c.gridheight = gridheight
+        c.weightx = weightx
+        c.weighty = weighty
+        c.fill = fill
+        c
+      }
+        add(tempPanel,constraints(0,0))
+        //peer.setMaximumSize(new Dimension(200,200))
+      }
+      contents += patternProp
+      border = Swing.EmptyBorder(10, 10, 10, 10)
+    }
+    repaint
+
+//    contents = new BorderPanel {
+//      add(tempPanel,BorderPanel.Position.Center)
+//      add(patternProp,BorderPanel.Position.East)
+//      border = Swing.EmptyBorder(10,10,10,10)
+//    }
+//    repaint
+  }
+
 }

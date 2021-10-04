@@ -12,7 +12,7 @@ import de.htwg.se.beads.model.fileIoComponent.fileIoJsonImpl
 class BeadModule extends AbstractModule with ScalaModule {
 
   override def configure() = {
-    bind[TemplateInterface].toInstance(new Template(10,10,Stitch.Square))
+    bind[TemplateInterface].toInstance(new Template(2,2,Stitch.Brick))
     bind[ControllerInterface].to[controllerBaseImpl.Controller]
     bind[FileIoInterface].to[fileIoJsonImpl.FileIO]
   }

@@ -7,11 +7,11 @@ import de.htwg.se.beads.controller.controllerComponent.ControllerInterface
 import de.htwg.se.beads.model.templateComponent.templateBaseImpl.Stitch
 import javax.swing.colorchooser.AbstractColorChooserPanel
 import javax.swing.event.{ChangeEvent, ChangeListener}
-import javax.swing.{JFormattedTextField, JPanel, JSpinner, JTextField, SpinnerNumberModel}
+import javax.swing.{JPanel, JSpinner, SpinnerNumberModel}
 
 import scala.swing.Swing.LineBorder
-import scala.swing.event.{ColorChanged, SelectionChanged}
-import scala.swing.{BorderPanel, ColorChooser, ComboBox, Component, GridPanel, Label, Swing, TextField}
+import scala.swing.event.{ButtonClicked, ColorChanged, EditDone, SelectionChanged}
+import scala.swing.{BorderPanel, Button, ColorChooser, ComboBox, Component, GridPanel, Label, Swing, TextField}
 
 class PatternPropPanel(controller: ControllerInterface) extends BorderPanel {
 
@@ -19,16 +19,10 @@ class PatternPropPanel(controller: ControllerInterface) extends BorderPanel {
     s.maximumSize = new Dimension(Short.MaxValue, s.preferredSize.height)
   }
 
-  def getTextField(spinner: JSpinner): JTextField ={ //TODO Maybe no necessary
-    val editor = spinner.getEditor
-      editor.asInstanceOf[JSpinner.DefaultEditor].getTextField
-  }
-
-  val beadSize = 0.22 //TODO add different beadSizes
+  var beadSize = 0.22
 
   val stitch = new ComboBox(List("Square","Brick")) //TODO "Peyote","3-Net","5-Net"
   stitch.peer.setSelectedItem(stitchMap.map.map(_.swap)(controller.bead(0,0).beadStitch))
-
   val colTxt = new JSpinner(new SpinnerNumberModel(controller.tempWidth,1,200,1))
   colTxt.setEditor(new JSpinner.NumberEditor(colTxt,"#"))
   val colSize = new TextField((beadSize * controller.tempWidth).toString + "cm",3)
@@ -37,6 +31,9 @@ class PatternPropPanel(controller: ControllerInterface) extends BorderPanel {
   colTxt.setEditor(new JSpinner.NumberEditor(colTxt,"#"))
   val rowSize = new TextField((beadSize * controller.tempWidth).toString + "cm",3)
   rowSize.editable = false
+  val beadSizeCom = new ComboBox(List("3/0","6/0","7/0","8/0","9/0","10/0","11/0","12/0","15/0"))
+  beadSizeCom.peer.setSelectedItem(beadSizeMap.map.map(_.swap)(beadSize))
+  val fill = new Button("Fill Template")
 
   restrictHeight(stitch)
 
@@ -68,7 +65,9 @@ class PatternPropPanel(controller: ControllerInterface) extends BorderPanel {
     val listenerCol: ChangeListener = new ChangeListener() {
       override def stateChanged(e: ChangeEvent): Unit = {
         val txt = colTxt.getValue
-        controller.changeSize(controller.tempLength, txt.toString.toInt)
+        val oldlength = controller.tempLength
+        val oldwidth = controller.tempWidth
+        controller.changeSize(oldlength,txt.toString.toInt)
         colSize.peer.setText((beadSize * controller.tempWidth).toString + "cm")
       }
     }
@@ -76,7 +75,7 @@ class PatternPropPanel(controller: ControllerInterface) extends BorderPanel {
     val listenerRow: ChangeListener = new ChangeListener() {
       override def stateChanged(e: ChangeEvent): Unit = {
         val txt = rowTxt.getValue
-        controller.changeSize(txt.toString.toInt, controller.tempWidth)
+        controller.createEmptyTemplate(txt.toString.toInt,controller.tempWidth ,controller.bead(0,0).beadStitch)
         rowSize.peer.setText((beadSize * controller.tempLength).toString + "cm")
       }
     }
@@ -85,9 +84,31 @@ class PatternPropPanel(controller: ControllerInterface) extends BorderPanel {
     rowTxt.addChangeListener(listenerRow)
   }
 
-  object selectColor {
-    var selColor: Color = WHITE
+  val topPanel: GridPanel = new GridPanel(1,2){
+    contents += propPanel
+    contents += new GridPanel(2,1){
+      contents += beadSizeCom
+      contents += fill
+      hGap = 5
+      vGap = 2
+      border = Swing.TitledBorder(LineBorder(LIGHT_GRAY), "Bead Size")
+
+      listenTo(fill)
+      listenTo(beadSizeCom.selection)
+
+      reactions += {
+        case ButtonClicked(`fill`) =>
+          controller.changeTemplateColor(selectColor.selColor)
+        case SelectionChanged(`beadSizeCom`) =>
+          beadSize = beadSizeMap.map.apply(beadSizeCom.selection.item)
+          colSize.peer.setText((beadSize * controller.tempWidth).toString + "cm")
+          rowSize.peer.setText((beadSize * controller.tempLength).toString + "cm")
+      }
+
+    }
   }
+
+
 
   def colorChooser: ColorChooser = new ColorChooser(){
     reactions += {
@@ -110,11 +131,17 @@ class PatternPropPanel(controller: ControllerInterface) extends BorderPanel {
 
   }
 
-  add(propPanel,BorderPanel.Position.North)
+  add(topPanel,BorderPanel.Position.North)
   add(colorChooser,BorderPanel.Position.Center)
 
   object stitchMap{
     val map: Map[String, Stitch.Value] = Map("Square" -> Stitch.Square, "Brick" -> Stitch.Brick)
   }
 
+  object beadSizeMap{
+    val map: Map[String, Double] = Map("3/0" -> 0.55, "6/0" -> 0.4,"7/0" -> 0.35,"8/0" -> 0.3,"9/0" -> 0.26,"10/0" -> 0.24,"11/0" -> 0.22,"12/0" -> 0.2,"15/0"-> 0.15)
+  }
+}
+object selectColor {
+  var selColor: Color = WHITE
 }

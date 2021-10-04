@@ -1,14 +1,16 @@
 package de.htwg.se.beads.model.templateComponent.templateBaseImpl
 
-import java.awt.Color.WHITE
+import java.awt.Color.{DARK_GRAY, LIGHT_GRAY}
 
 import com.google.inject.Inject
 import de.htwg.se.beads.model.templateComponent.TemplateInterface
 
 case class Template@Inject()(beads:Matrix) extends TemplateInterface{
-  def this(length: Int, width: Int, stitch: Stitch.Value) = this(new Matrix(length, width, Bead(Coord(0, 0), stitch, WHITE)))
 
-  val stitch = bead(0, 0).beadStitch
+  val startColor = LIGHT_GRAY
+  def this(length: Int, width: Int, stitch: Stitch.Value) = this(new Matrix(length, width, Bead(Coord(0, 0), stitch, LIGHT_GRAY)))
+
+  val stitch:Stitch.Value = bead(0, 0).beadStitch
   val size_rows: Int = beads.size._1
   val size_cols: Int = beads.size._2
 
@@ -19,9 +21,9 @@ case class Template@Inject()(beads:Matrix) extends TemplateInterface{
     copy(beads.replaceBead(row, col, new Bead(oldbead.beadCoord, oldbead.beadStitch, color)))
   }
 
-  def changeSize(l: Int, w: Int): Template = copy(new Matrix(l, w, Bead(Coord(0, 0), this.stitch, WHITE)))
+  def changeSize(l: Int, w: Int): Template = copy(new Matrix(l, w, Bead(Coord(0, 0), this.stitch, startColor)))
 
-  def newTemplate(l: Int, w: Int, stitch: Stitch.Value): Template = copy(new Matrix(l, w,Bead(Coord(0, 0), stitch, WHITE)))
+  def newTemplate(l: Int, w: Int, stitch: Stitch.Value): Template = copy(new Matrix(l, w,Bead(Coord(0, 0), stitch, startColor)))
 
   def row(row: Int): Vektor = Vektor(beads.matrix(row))
 

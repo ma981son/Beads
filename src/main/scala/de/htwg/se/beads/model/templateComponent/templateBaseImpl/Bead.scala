@@ -1,13 +1,10 @@
 package de.htwg.se.beads.model.templateComponent.templateBaseImpl
 
-import java.awt
+
 import java.awt.Color._
 
-import com.fasterxml.jackson.core.{JsonGenerator, JsonParser}
-import com.fasterxml.jackson.databind.module.SimpleModule
-import com.fasterxml.jackson.databind._
 import de.htwg.se.beads.model.templateComponent.BeadInterface
-import play.api.libs.functional.syntax._
+
 import scala.language.postfixOps
 
 import scala.io.AnsiColor.RESET
@@ -21,7 +18,7 @@ case class Bead(beadCoord:Coord,
                 beadColor:java.awt.Color) extends BeadInterface{
 
 
-  def isFilled: Boolean = beadColor != WHITE
+  def isFilled: Boolean = beadColor != java.awt.Color.LIGHT_GRAY
 
   def changeColor(color:java.awt.Color): Bead = copy(beadCoord,beadStitch,color)
 
