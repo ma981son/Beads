@@ -25,7 +25,7 @@ class TemplateSpec extends AnyWordSpec with Matchers {
     }
     "created properly but empty" should {
       val template = new Template(2, 2,Stitch.Square)
-      "give access to ist beads" in {
+      "give access to its beads" in {
         template.bead(0, 0) should be(Bead(Coord(0, 0), Stitch.Square, WHITE))
         template.bead(1, 0) should be(Bead(Coord(1, 0), Stitch.Square, WHITE))
       }
@@ -55,11 +55,11 @@ class TemplateSpec extends AnyWordSpec with Matchers {
       "have a String " in {
         val stringTemp = template.toString
         stringTemp should be(
-          "\n----------" +
-          "\n|\u001B[47m   \u001B[0m||\u001B[47m   \u001B[0m|" +
-          "\n----------" +
-          "\n|\u001B[47m   \u001B[0m||\u001B[47m   \u001B[0m|" +
-          "\n----------\n")
+          "\n------------" +
+          "\n|\u001B[47m    \u001B[0m||\u001B[47m    \u001B[0m|" +
+          "\n------------" +
+          "\n|\u001B[47m    \u001B[0m||\u001B[47m    \u001B[0m|" +
+          "\n------------\n")
       }
     }
 

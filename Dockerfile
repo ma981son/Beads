@@ -1,4 +1,4 @@
-FROM hseeberger/scala-sbt
-WORKDIR /beads
-ADD . /beads
+FROM hseeberger/scala-sbt:8u222_1.3.5_2.13.1
+WORKDIR /Beads
+ADD . /Beads
 CMD sbt test
