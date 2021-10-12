@@ -7,7 +7,7 @@ import scala.io.AnsiColor.RESET
 import scala.language.postfixOps
 
 object Stitch extends Enumeration {
-  val Brick, Square, Fringe, Huichol_3, Huichol_5, Brazil = Value
+  val Brick, Square, Fringe, Brazil, Huichol_3, Huichol_5  = Value
 }
 
 case class Bead(beadCoord:Coord,

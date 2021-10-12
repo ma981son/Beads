@@ -1,5 +1,4 @@
 
-import de.htwg.se.beads.model.templateComponent.templateBaseImpl.Stitch.Brazil
 import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Color, Coord, Stitch}
 
 import scala.collection.immutable.Vector
@@ -38,7 +37,7 @@ case class Bead(beadCoord:Coord,
 
     def strategy1:String = s"|                 |"
 
-    def strategy2:String = s"| "+ beadColor +" |"
+    def strategy2:String = s"| "+ beadCoord +" |"
   }
 
   override def toString: String = {
@@ -132,13 +131,14 @@ case class Grid(beads:Matrix) {
       var strategy = stitch match {
         case Stitch.Square => strategy1
         case Stitch.Brick => strategy2
-        case Brazil => strategy3
+        case Stitch.Brazil => strategy3
+        case Stitch.Huichol_3 => strategy4
       }
 
       def strategy1: String = {
         val regex = "x".r
         val line = "x" * size_cols + "\n"
-        var lineseparator = ("-" * 24) * size_cols + "\n"
+        val lineseparator = ("-" * 24) * size_cols + "\n"
         var box = "\n" + (lineseparator + (line + lineseparator) * size_rows)
 
         for (row <- 0 until size_rows) {
@@ -171,7 +171,7 @@ case class Grid(beads:Matrix) {
         val regex = "x".r
         val noBead = "|                          |"
         val line = ("x" + noBead) * size_cols + "\n"
-        var lineseparator = ("-" * 24) * size_cols + "\n"
+        val lineseparator = ("-" * 24) * size_cols + "\n"
         val line1 = noBead + line
         var box = "\n" + (lineseparator + (line1 + lineseparator + line + lineseparator) * (size_rows / 2))
         if (size_rows % 2 != 0) {
@@ -184,15 +184,55 @@ case class Grid(beads:Matrix) {
         }
         box
       }
-    }
 
+      def strategy4: String = {
+        val regex = "x".r
+        val noBead = "|" + " " * (bead(0,0).toString().size-2) + "|"
+
+        val lineseparator = "\n" + ("-" * 28) * size_cols + "\n"
+        val line1 = (noBead+ noBead + "x" + noBead) * (size_cols)
+        val line2 = (noBead + "x" + "|") * (size_cols)
+        val line3 = ("x" + noBead + noBead + noBead) * (size_cols)
+        //var box = (lineseparator + (line1 + lineseparator + line2 + lineseparator + line3 + lineseparator + line2) )* (size_rows)
+        var box = lineseparator
+        var a = 0
+
+        for(i <- 0 to size_rows by 1) {
+          if(a == size_rows) return box
+          box  = box + line1 + lineseparator
+          a = a + 1
+
+          if(a == size_rows)return box
+          box = box + line2 + lineseparator
+          a = a + 1
+
+          if(a == size_rows) return box
+          box = box + line3 + lineseparator
+          a = a + 1
+
+          if(a == size_rows) return box
+          box = box + line2 + lineseparator
+          a = a + 1
+        }
+
+         for (row <- 0 until size_rows) {
+          for (col <- 0 until size_cols) {
+            box = regex.replaceFirstIn(box, bead(row, col).toString)
+          }
+       }
+        box
+      }
+    }
   override def toString: String = {
     String.strategy
   }
-
 }
 
-val grid1 = new Grid(4,1,Brazil)
+val grid1 = new Grid(6,2,Stitch.Huichol_3)
+grid1.toString
+grid1.setColor(0,0,red)
+grid1.bead(0,0).beadColor
+
 
 val bead1 = new Bead(Coord(0,0),Stitch.Square,white)
 bead1.toString
