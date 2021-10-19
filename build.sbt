@@ -22,4 +22,6 @@ libraryDependencies += "net.codingwell" %% "scala-guice" % "4.2.10"
 
 libraryDependencies += "org.scala-lang.modules" % "scala-xml_2.12" % "2.0" % "scala-guice_2.13-4.2.10.pom "
 
-libraryDependencies += "com.typesafe.play" %% "play-json" % "2.9.0"
+libraryDependencies += "com.typesafe.play" %% "play-json" % "2.9.2"
+
+libraryDependencies += "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.11.4"

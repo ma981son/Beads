@@ -1,10 +1,5 @@
 package de.htwg.se.beads.model.fileIoComponent.fileIoJsonImpl
 
-import java.awt.Color
-
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.databind.node.TextNode
-import com.fasterxml.jackson.databind.{DeserializationContext, JsonDeserializer, JsonSerializer, SerializerProvider}
 import de.htwg.se.beads.model.fileIoComponent.FileIoInterface
 import de.htwg.se.beads.model.templateComponent.{BeadInterface, TemplateInterface}
 import play.api.libs.json._

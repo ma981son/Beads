@@ -1,13 +1,7 @@
 package de.htwg.se.beads.aview.gui
 
-import java.awt.Color._
-import java.awt.Dimension
-
-import de.htwg.se.beads.Beads.controller
 import de.htwg.se.beads.controller.controllerComponent.{BeadChanged, ControllerInterface, TemplateChanged, TemplateSizeChanged}
-import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Stitch, Template}
 
-import scala.swing.MenuBar.NoMenuBar.revalidate
 import scala.swing._
 import scala.swing.event._
 
