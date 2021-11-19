@@ -1,27 +1,16 @@
-package de.htwg.se.beads.model.fileIoComponent.fileIoJsonImpl
 
-import com.fasterxml.jackson.databind.JsonSerializer
-import com.google.common.collect.EnumMultiset
-import com.google.inject.Guice
-import de.htwg.se.beads.BeadModule
+import de.htwg.se.beads.Beads.injector
 import de.htwg.se.beads.model.fileIoComponent.FileIoInterface
 import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Color, Coord, Stitch}
 import de.htwg.se.beads.model.templateComponent.{BeadInterface, TemplateInterface}
-import play.api.libs.functional.syntax.toFunctionalBuilderOps
-import play.api.libs.json._
-
-import java.awt
-import scala.io.Source
-import de.htwg.se.beads.Beads.{controller, injector}
-import de.htwg.se.beads.model.fileIoComponent.FileIoInterface
-import de.htwg.se.beads.model.templateComponent.{BeadInterface, TemplateInterface}
-import net.codingwell.scalaguice.InjectorExtensions.ScalaInjector
 import play.api.libs.functional.syntax.{toFunctionalBuilderOps, unlift}
+
 import play.api.libs.json.{JsNumber, JsObject, JsValue, Json, Reads, Writes}
 import play.api.libs.json._
 import play.api.libs.json.Reads._
 
 import java.awt
+
 import scala.io.Source
 
 
@@ -33,10 +22,6 @@ class FileIO extends FileIoInterface {
     val json: JsValue = Json.parse(source)
     val length = (json \ "temp" \ "length").get.toString.toInt
     val width = (json \ "temp" \ "width").get.toString.toInt
-    val stitch = (json \ "temp" \ "stitch").as[Stitch.Value]
-    val injector = Guice.createInjector(new BeadModule)
-
-    temp = injector.instance[TemplateInterface].newTemplate(length,width,stitch)
 
     for(index <- 0 until length * width)
     {
@@ -47,6 +32,7 @@ class FileIO extends FileIoInterface {
       val g = (bead \ "color" \ "g").as[Int]
       val b = (bead \ "color" \ "b").as[Int]
       val color = rgbToAWT(Color(r,g,b))
+
       temp = temp.setColor(row, col, color)
     }
     temp
@@ -68,25 +54,25 @@ class FileIO extends FileIoInterface {
     (JsPath \ "r").read[Double] and
       (JsPath \ "g").read[Double] and
       (JsPath \ "b").read[Double]
-    )(Color.apply _)
+  )(Color.apply _)
 
   implicit val colorWrites: Writes[Color] = (
     (JsPath \ "r").write[Double] and
       (JsPath \ "g").write[Double] and
       (JsPath \ "b").write[Double]
-    )(unlift(Color.unapply))
+  )(unlift(Color.unapply))
 
-  implicit val format: Format[Stitch.Value] = Json.formatEnum(Stitch)
+  implicit val stitchFormat: Format[Stitch.Value] = Json.formatEnum(Stitch)
 
   implicit val coordReads: Reads[Coord] = (
     (JsPath \ "x").read[Double] and
       (JsPath \ "y").read[Double]
-    )(Coord.apply _)
+  )(Coord.apply _)
 
   implicit val coordWrites: Writes[Coord] = (
     (JsPath \ "x").write[Double] and
       (JsPath \ "y").write[Double]
-    )(unlift(Coord.unapply))
+  )(unlift(Coord.unapply))
 
 
   override def save(temp: TemplateInterface): Unit = {
@@ -123,3 +109,9 @@ class FileIO extends FileIoInterface {
     )
   }
 }
+
+var template = injector.getInstance(classOf[TemplateInterface])
+  val fileIO = new FileIO
+  fileIO.save(template)
+fileIO.load
+

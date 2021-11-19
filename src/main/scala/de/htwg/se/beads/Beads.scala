@@ -14,6 +14,7 @@ object Beads {
   val tui = new Tui(controller)
   val gui = new SwingGUI(controller)
 
+
   def main(args:Array[String]): Unit = {
     var input:String = ""
     var inputSize:String = ""

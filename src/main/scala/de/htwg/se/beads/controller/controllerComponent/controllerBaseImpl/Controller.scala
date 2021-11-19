@@ -1,24 +1,20 @@
 package de.htwg.se.beads.controller.controllerComponent.controllerBaseImpl
 
-import com.google.inject.name.Names
 import com.google.inject.{Guice, Inject}
 import de.htwg.se.beads.BeadModule
 import de.htwg.se.beads.controller.controllerComponent.{BeadChanged, ControllerInterface, TemplateChanged, TemplateSizeChanged}
-import de.htwg.se.beads.model.templateComponent.TemplateInterface
-import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Stitch, Template}
-import de.htwg.se.beads.util.UndoManager
-import de.htwg.se.beads.model.fileIoComponent.FileIoInterface
 import de.htwg.se.beads.model.fileIoComponent.fileIoJsonImpl.FileIO
-import de.htwg.se.beads.model.fileIoComponent.fileIoXmlImpl
+import de.htwg.se.beads.model.templateComponent.TemplateInterface
+import de.htwg.se.beads.model.templateComponent.templateBaseImpl.Stitch
+import de.htwg.se.beads.util.UndoManager
 
 import scala.swing.Publisher
 
 
-class Controller@Inject()(var temp: TemplateInterface) extends ControllerInterface with Publisher {
+class Controller@Inject()(var temp: TemplateInterface) extends ControllerInterface with Publisher{
 
   private val undoManager: UndoManager = new UndoManager
   val injector = Guice.createInjector(new BeadModule)
-  val fileIo = injector.getInstance(classOf[FileIoInterface])
 
   def createEmptyTemplate(length: Int, width: Int,stitch:Stitch.Value): Unit = {
     undoManager.doStep(new createTemplateCommand(length,width,stitch,this))
@@ -69,13 +65,15 @@ class Controller@Inject()(var temp: TemplateInterface) extends ControllerInterfa
   }
 
   def save(): Unit = {
-    fileIo.save(temp)
-    publish(new BeadChanged)
+    val fileIO = new FileIO
+    fileIO.save(temp)
+    //publish(new TemplateChanged(tempLength,tempWidth,stitch))
   }
 
   def load():Unit={
-    fileIo.load
-    publish(new BeadChanged)
+    val fileIO = new FileIO
+    temp = fileIO.load
+    publish(TemplateChanged(tempLength,tempWidth,stitch))
   }
 
   def bead(row:Int, col:Int) = temp.bead(row,col)

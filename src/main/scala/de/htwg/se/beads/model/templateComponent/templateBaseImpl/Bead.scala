@@ -2,6 +2,7 @@ package de.htwg.se.beads.model.templateComponent.templateBaseImpl
 
 
 import de.htwg.se.beads.model.templateComponent.BeadInterface
+import play.api.libs.json.{Format, Json}
 
 import scala.io.AnsiColor.RESET
 import scala.language.postfixOps
