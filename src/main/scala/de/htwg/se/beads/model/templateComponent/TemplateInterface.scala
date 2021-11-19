@@ -1,6 +1,7 @@
 package de.htwg.se.beads.model.templateComponent
 
 import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Coord, Stitch, Vektor}
+import play.api.libs.json.JsValue
 
 trait TemplateInterface {
 
@@ -25,6 +26,8 @@ trait TemplateInterface {
   def setColumnColor(col: Int, color: java.awt.Color): TemplateInterface
 
   def changeTemplateColor(color: java.awt.Color): TemplateInterface
+
+  def toJson:JsValue
 
 }
 

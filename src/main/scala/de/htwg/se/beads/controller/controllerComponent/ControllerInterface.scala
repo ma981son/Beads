@@ -1,6 +1,7 @@
 package de.htwg.se.beads.controller.controllerComponent
 import de.htwg.se.beads.model.templateComponent.BeadInterface
 import de.htwg.se.beads.model.templateComponent.templateBaseImpl.Stitch
+import play.api.libs.json.JsValue
 
 import scala.swing.Publisher
 
@@ -35,6 +36,8 @@ trait ControllerInterface extends Publisher{
 
   def tempLength:Int
   def tempWidth:Int
+
+  def toJson:JsValue
 }
 
 

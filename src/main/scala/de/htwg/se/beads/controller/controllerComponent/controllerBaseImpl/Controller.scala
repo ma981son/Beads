@@ -7,6 +7,7 @@ import de.htwg.se.beads.model.fileIoComponent.fileIoJsonImpl.FileIO
 import de.htwg.se.beads.model.templateComponent.TemplateInterface
 import de.htwg.se.beads.model.templateComponent.templateBaseImpl.Stitch
 import de.htwg.se.beads.util.UndoManager
+import play.api.libs.json.JsValue
 
 import scala.swing.Publisher
 
@@ -75,6 +76,8 @@ class Controller@Inject()(var temp: TemplateInterface) extends ControllerInterfa
     temp = fileIO.load
     publish(TemplateChanged(tempLength,tempWidth,stitch))
   }
+
+  def toJson: JsValue = temp.toJson
 
   def bead(row:Int, col:Int) = temp.bead(row,col)
   def stitch = temp.stitch

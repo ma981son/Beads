@@ -101,25 +101,8 @@ class FileIO extends FileIoInterface {
     "color" -> awtToRgb(bead.beadColor)
   )
 
-  def tempToJson(temp: TemplateInterface): JsObject = {
-    Json.obj(
-      "temp" -> Json.obj(
-        "length" -> JsNumber(temp.size_rows),
-        "width" -> JsNumber(temp.size_cols),
-        "stitch" -> Json.toJson(temp.bead(0,0).beadStitch),
-        "beads" -> Json.toJson(
-          for {
-            row <- 0 until temp.size_rows
-            col <- 0 until temp.size_cols
-          } yield {
-            Json.obj(
-              "row" -> row,
-              "col" -> col,
-              "bead" -> Json.toJson(temp.bead(row, col))
-            )
-          }
-        )
-      )
-    )
+  def tempToJson(temp: TemplateInterface): JsValue = {
+    temp.toJson
   }
+
 }
