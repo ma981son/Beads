@@ -1,9 +1,15 @@
 package de.htwg.se.beads.model.templateComponent.templateBaseImpl
 
 import java.awt.Color.{DARK_GRAY, LIGHT_GRAY}
-
 import com.google.inject.Inject
-import de.htwg.se.beads.model.templateComponent.TemplateInterface
+import de.htwg.se.beads.model.templateComponent.{BeadInterface, TemplateInterface}
+import play.api.libs.json.{Format, JsNumber, JsPath, JsValue, Json, Reads, Writes}
+
+import play.api.libs.functional.syntax.{toFunctionalBuilderOps, unlift}
+
+
+
+import java.awt
 
 case class Template@Inject()(beads:Matrix) extends TemplateInterface{
 
@@ -40,6 +46,67 @@ case class Template@Inject()(beads:Matrix) extends TemplateInterface{
   def changeTemplateColor(color: java.awt.Color): Template = {
     copy(beads.replaceMatrixColor(color))
   }
+
+  def toJson:JsValue = {
+    Json.obj(
+      "temp" -> Json.obj(
+        "length" -> JsNumber(size_rows),
+        "width" -> JsNumber(size_cols),
+        "stitch" -> Json.toJson(bead(0,0).beadStitch),
+        "beads" -> Json.toJson(
+          for {
+            row <- 0 until size_rows
+            col <- 0 until size_cols
+          } yield {
+            Json.obj(
+              "row" -> row,
+              "col" -> col,
+              "bead" -> Json.toJson(bead(row, col))
+            )
+          }
+        )
+      )
+    )
+  }
+
+
+
+  def rgbToAWT(color: Color): awt.Color = {
+    new awt.Color(color.r.toInt,color.g.toInt,color.b.toInt)
+  }
+
+  def awtToRgb(color: awt.Color): Color = {
+    Color(color.getRed, color.getGreen, color.getBlue)
+  }
+
+  implicit val colorReads: Reads[Color] = (
+    (JsPath \ "r").read[Double] and
+      (JsPath \ "g").read[Double] and
+      (JsPath \ "b").read[Double]
+    )(Color.apply _)
+
+  implicit val colorWrites: Writes[Color] = (
+    (JsPath \ "r").write[Double] and
+      (JsPath \ "g").write[Double] and
+      (JsPath \ "b").write[Double]
+    )(unlift(Color.unapply))
+
+  implicit val format: Format[Stitch.Value] = Json.formatEnum(Stitch)
+
+  implicit val coordReads: Reads[Coord] = (
+    (JsPath \ "x").read[Double] and
+      (JsPath \ "y").read[Double]
+    )(Coord.apply _)
+
+  implicit val coordWrites: Writes[Coord] = (
+    (JsPath \ "x").write[Double] and
+      (JsPath \ "y").write[Double]
+    )(unlift(Coord.unapply))
+
+  implicit val beadWrites: Writes[Bead] = (bead: Bead) => Json.obj(
+    "coords" -> Json.toJson(bead.beadCoord),
+    "color" -> Json.toJson(awtToRgb(bead.beadColor))
+  )
 
   object String  {
 

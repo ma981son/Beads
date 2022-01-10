@@ -1,5 +1,8 @@
 package de.htwg.se.beads.model.templateComponent.templateBaseImpl
 
+import play.api.libs.functional.syntax.{toFunctionalBuilderOps, unlift}
+import play.api.libs.json.{JsPath, Reads, Writes}
+
 import scala.collection.immutable.Map
 import scala.io.AnsiColor._
 
@@ -21,8 +24,8 @@ object awtColorToAnsi{
 }
 
 
-case class Color(r:Double, g:Double, b:Double){
-  override def toString:String = {
-    "Color("+r+","+g+","+b+")"
+case class Color(r:Double, g:Double, b:Double) {
+  override def toString: String = {
+    "Color(" + r + "," + g + "," + b + ")"
   }
 }

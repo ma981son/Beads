@@ -89,6 +89,7 @@ class TemplatePanel(controller: ControllerInterface) extends GridBagPanel {
     visible = true
     repaint
   }
+
 }
 
 

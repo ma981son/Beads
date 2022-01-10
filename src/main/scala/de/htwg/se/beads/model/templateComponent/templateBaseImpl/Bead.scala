@@ -1,13 +1,18 @@
 package de.htwg.se.beads.model.templateComponent.templateBaseImpl
 
-
+import de.htwg.se.beads.model.templateComponent.templateBaseImpl.Coord
 import de.htwg.se.beads.model.templateComponent.BeadInterface
+import play.api.libs.functional.syntax.{toFunctionalBuilderOps, unlift}
+import play.api.libs.json.{Format, JsPath, Json, Reads, Writes}
 
+import java.awt
 import scala.io.AnsiColor.RESET
 import scala.language.postfixOps
 
 object Stitch extends Enumeration {
   val Brick, Square, Fringe, Brazil, Huichol_3, Huichol_5  = Value
+
+  implicit val format: Format[Stitch.Value] = Json.formatEnum(Stitch)
 }
 
 case class Bead(beadCoord:Coord,
