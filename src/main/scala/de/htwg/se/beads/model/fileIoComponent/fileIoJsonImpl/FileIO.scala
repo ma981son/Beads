@@ -41,8 +41,6 @@ class FileIO extends FileIoInterface {
     temp
   }
 
-
-
   def rgbToAWT(color: Color): awt.Color = {
     new awt.Color(color.r.toInt,color.g.toInt,color.b.toInt)
   }
@@ -50,8 +48,6 @@ class FileIO extends FileIoInterface {
   def awtToRgb(color: awt.Color): Color = {
     Color(color.getRed, color.getGreen, color.getBlue)
   }
-
-
 
   implicit val colorReads: Reads[Color] = (
     (JsPath \ "r").read[Double] and
@@ -76,7 +72,6 @@ class FileIO extends FileIoInterface {
     (JsPath \ "x").write[Double] and
       (JsPath \ "y").write[Double]
     )(unlift(Coord.unapply))
-
 
   override def save(temp: TemplateInterface): Unit = {
     import java.io._
