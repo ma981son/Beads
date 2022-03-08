@@ -1,25 +1,14 @@
 package de.htwg.se.beads.model.fileIoComponent.fileIoJsonImpl
 
-import com.fasterxml.jackson.databind.JsonSerializer
-import com.google.common.collect.EnumMultiset
 import com.google.inject.Guice
 import de.htwg.se.beads.BeadModule
 import de.htwg.se.beads.model.fileIoComponent.FileIoInterface
 import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Color, Coord, Stitch}
 import de.htwg.se.beads.model.templateComponent.{BeadInterface, TemplateInterface}
-import play.api.libs.functional.syntax.toFunctionalBuilderOps
-import play.api.libs.json._
-
-import java.awt
-import scala.io.Source
-import de.htwg.se.beads.Beads.{controller, injector}
-import de.htwg.se.beads.model.fileIoComponent.FileIoInterface
-import de.htwg.se.beads.model.templateComponent.{BeadInterface, TemplateInterface}
 import net.codingwell.scalaguice.InjectorExtensions.ScalaInjector
 import play.api.libs.functional.syntax.{toFunctionalBuilderOps, unlift}
-import play.api.libs.json.{JsNumber, JsObject, JsValue, Json, Reads, Writes}
-import play.api.libs.json._
 import play.api.libs.json.Reads._
+import play.api.libs.json._
 
 import java.awt
 import scala.io.Source
@@ -91,7 +80,7 @@ class FileIO extends FileIoInterface {
 
   override def save(temp: TemplateInterface): Unit = {
     import java.io._
-    val pw = new PrintWriter(new File("C:\\Users\\Maria Fe\\IdeaProjects\\Beads\\src\\main\\scala\\de\\htwg\\se\\beads\\model\\fileIoComponent\\fileIoJsonImpl\\temp.json"))
+    val pw = new PrintWriter(new File("C:\\Users\\Maria\\IdeaProjects\\Beads\\src\\main\\scala\\de\\htwg\\se\\beads\\model\\fileIoComponent\\fileIoJsonImpl\\temp.json"))
     pw.write(Json.prettyPrint(tempToJson(temp)))
     pw.close()
   }
