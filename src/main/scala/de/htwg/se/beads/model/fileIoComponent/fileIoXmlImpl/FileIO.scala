@@ -7,7 +7,7 @@ import scala.xml.{Elem, PrettyPrinter}
 class FileIO extends FileIoInterface {
 
   override def load: TemplateInterface = {
-    var temp: TemplateInterface = null
+    val temp: TemplateInterface = null
     val file = scala.xml.XML.loadFile("temp.xml")
     val lengthAttr = file \\ "temp" \ "@length"
     val widthAttr = file \\ "temp" \ "@width"
@@ -17,8 +17,6 @@ class FileIO extends FileIoInterface {
     for (bead <- beadNodes) {
       val row: Int = (bead \ "@row").text.toInt
       val col: Int = (bead \ "@col").text.toInt
-      //val color: java.awt.Color = bead.text
-        //temp = temp.setColor(row, col, color)
     }
     temp
   }

@@ -16,7 +16,6 @@ class BeadPanel(row: Int, column: Int, controller: ControllerInterface) extends 
 
     def beadText = "( " + myBead.beadCoord.x.toInt + ", " + myBead.beadCoord.y.toInt + " )"
 
-
       preferredSize = new Dimension(20, 15)
       border = Swing.MatteBorder(1,1,1,1,Color.DARK_GRAY)
       foreground = Color.DARK_GRAY
@@ -33,7 +32,6 @@ class BeadPanel(row: Int, column: Int, controller: ControllerInterface) extends 
           controller.setColor(row, column, selectColor.selColor)
         }
       }
-
 
     def redraw() = {
       contents.clear()

@@ -24,7 +24,7 @@ object awtColorToAnsi{
 }
 
 
-case class Color(r:Double, g:Double, b:Double) {
+case class Color(r:Double, g:Double, b:Double) { // No getter or Setter -> Constructor part of declaration
   override def toString: String = {
     "Color(" + r + "," + g + "," + b + ")"
   }

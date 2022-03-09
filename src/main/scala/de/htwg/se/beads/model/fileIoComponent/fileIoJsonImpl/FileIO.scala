@@ -18,7 +18,7 @@ class FileIO extends FileIoInterface {
 
   override def load: TemplateInterface = {
     var temp: TemplateInterface = null
-    val source: String = Source.fromFile("C:\\Users\\Maria Fe\\IdeaProjects\\Beads\\src\\main\\scala\\de\\htwg\\se\\beads\\model\\fileIoComponent\\fileIoJsonImpl\\temp.json").getLines.mkString
+    val source: String = Source.fromFile("C:\\Users\\Maria\\IdeaProjects\\Beads\\src\\main\\scala\\de\\htwg\\se\\beads\\model\\fileIoComponent\\fileIoJsonImpl\\temp.json").getLines.mkString
     val json: JsValue = Json.parse(source)
     val length = (json \ "temp" \ "length").get.toString.toInt
     val width = (json \ "temp" \ "width").get.toString.toInt

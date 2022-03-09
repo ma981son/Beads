@@ -14,30 +14,30 @@ import java.awt
 case class Template@Inject()(beads:Matrix) extends TemplateInterface{
 
   val startColor = LIGHT_GRAY
-  def this(length: Int, width: Int, stitch: Stitch.Value) = this(new Matrix(length, width, Bead(Coord(0, 0), stitch, LIGHT_GRAY)))
+  def this(length: Int, width: Int, stitch: Stitch.Value) = this(new Matrix(length, width, Bead(Coord(0, 0), stitch, LIGHT_GRAY))) // No getter or Setter -> Constructor part of declaration
 
-  val stitch:Stitch.Value = bead(0, 0).beadStitch
-  val size_rows: Int = beads.size._1
-  val size_cols: Int = beads.size._2
+  val stitch:Stitch.Value = bead(0, 0).beadStitch //No var in model layer. Used val
+  val size_rows: Int = beads.size._1 //No var in model layer. Used val
+  val size_cols: Int = beads.size._2 //No var in model layer. Used val
 
   def bead(row: Int, col: Int): Bead = beads.bead(row, col)
 
   def setColor(row: Int, col: Int, color: java.awt.Color): Template = {
     val oldbead = bead(row, col)
     copy(beads.replaceBead(row, col, new Bead(oldbead.beadCoord, oldbead.beadStitch, color)))
-  }
+  } //Functional copying -> No state
 
-  def changeSize(l: Int, w: Int): Template = copy(new Matrix(l, w, Bead(Coord(0, 0), this.stitch, startColor)))
+  def changeSize(l: Int, w: Int): Template = copy(new Matrix(l, w, Bead(Coord(0, 0), this.stitch, startColor))) //Functional copying -> No state
 
-  def newTemplate(l: Int, w: Int, stitch: Stitch.Value): Template = copy(new Matrix(l, w,Bead(Coord(0, 0), stitch, startColor)))
+  def newTemplate(l: Int, w: Int, stitch: Stitch.Value): Template = copy(new Matrix(l, w,Bead(Coord(0, 0), stitch, startColor))) //Functional copying -> No state
 
-  def row(row: Int): Vektor = Vektor(beads.matrix(row))
+  def row(row: Int): Vektor = Vektor(beads.matrix(row)) //Used standard collections
 
   def setRowColor(row: Int, color: java.awt.Color): Template = {
-    copy(beads.replaceRowColor(row, color))
+    copy(beads.replaceRowColor(row, color)) //Functional copying -> No state
   }
 
-  def col(col: Int): Vektor = Vektor(beads.matrix.map(row => row(col)))
+  def col(col: Int): Vektor = Vektor(beads.matrix.map(row => row(col))) //Used standard collections
 
   def setColumnColor(col: Int, color: java.awt.Color): Template = {
     copy(beads.replaceColumnColor(col, color))
@@ -45,7 +45,7 @@ case class Template@Inject()(beads:Matrix) extends TemplateInterface{
 
   def changeTemplateColor(color: java.awt.Color): Template = {
     copy(beads.replaceMatrixColor(color))
-  }
+  } //Functional copying -> No state && Functions as parameter
 
   def toJson:JsValue = {
     Json.obj(
@@ -69,13 +69,11 @@ case class Template@Inject()(beads:Matrix) extends TemplateInterface{
     )
   }
 
-
-
-  def rgbToAWT(color: Color): awt.Color = {
+  def rgbToAWT(color: Color): awt.Color = { //Functions as parameter
     new awt.Color(color.r.toInt,color.g.toInt,color.b.toInt)
   }
 
-  def awtToRgb(color: awt.Color): Color = {
+  def awtToRgb(color: awt.Color): Color = { //Functions as parameter
     Color(color.getRed, color.getGreen, color.getBlue)
   }
 
@@ -112,7 +110,7 @@ case class Template@Inject()(beads:Matrix) extends TemplateInterface{
 
     var strategy = if (stitch.equals(Stitch.Brick)) strategy1 else strategy2
 
-    def strategy1:String = {
+    def strategy1:String = { //No var in model layer. Used val
       val regex = "x".r
       val line = "x" * size_cols + "\n"
       var lineseparator = ("-" * 6) * size_cols + "\n"
@@ -122,7 +120,7 @@ case class Template@Inject()(beads:Matrix) extends TemplateInterface{
       if (size_rows % 2 != 0) {
         box = box + line1 + lineseparator
       }
-      for (row <- 0 until size_rows) {
+      for (row <- 0 until size_rows) {  //TODO:  Make recursive
         for (col <- 0 until size_cols) {
           box = regex.replaceFirstIn(box, bead(row, col).toString)
         }
@@ -135,7 +133,7 @@ case class Template@Inject()(beads:Matrix) extends TemplateInterface{
       val line = "x" * size_cols + "\n"
       var lineseparator = ("-" * 6) * size_cols + "\n"
       var box = "\n" + (lineseparator + (line + lineseparator) * size_rows)
-      for (row <- 0 until size_rows) {
+      for (row <- 0 until size_rows) { //TODO:  Make recursive
         for (col <- 0 until size_cols) {
           box = regex.replaceFirstIn(box, bead(row, col).toString)
         }
@@ -148,8 +146,3 @@ case class Template@Inject()(beads:Matrix) extends TemplateInterface{
     String.strategy
   }
 }
-//object Template {
-//  import play.api.libs.json._
-//  implicit val templateWrites = Json.writes[Template]
-//  implicit val templateReads = Json.reads[Template]
-//}

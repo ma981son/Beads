@@ -36,8 +36,7 @@ class Controller@Inject()(var temp: TemplateInterface) extends ControllerInterfa
 
   def changeStitch(stitch: Stitch.Value)={
     undoManager.doStep(new createTemplateCommand(tempLength,tempWidth,stitch,this))
-   // temp = temp.newTemplate(tempLength,tempWidth,stitch)
-    publish(new TemplateChanged(tempLength,tempWidth,stitch))
+    publish(TemplateChanged(tempLength, tempWidth, stitch))
   }
 
   def changeRowColor(row:Int,color: java.awt.Color):Unit={
@@ -68,7 +67,6 @@ class Controller@Inject()(var temp: TemplateInterface) extends ControllerInterfa
   def save(): Unit = {
     val fileIO = new FileIO
     fileIO.save(temp)
-    //publish(new TemplateChanged(tempLength,tempWidth,stitch))
   }
 
   def load():Unit={
