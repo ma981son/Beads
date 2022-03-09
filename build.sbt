@@ -3,7 +3,7 @@ organization  := "de.htwg.se"
 version := "0.0.1"
 scalaVersion := "2.13.2"
 
-lazy val root = (project in file("."))
+lazy val root = Project(id="Beads", base = file("."))
   .aggregate(util,controller,fileio,template)
   .dependsOn(util,controller,template)
 
