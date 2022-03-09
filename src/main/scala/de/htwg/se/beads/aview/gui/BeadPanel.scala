@@ -1,9 +1,9 @@
 package de.htwg.se.beads.aview.gui
 
+import de.htwg.se.beads.controller.BeadChanged
+import de.htwg.se.beads.controller.{BeadChanged, ControllerInterface}
+
 import java.awt.Color
-
-import de.htwg.se.beads.controller.controllerComponent.{BeadChanged, ControllerInterface}
-
 import scala.swing.MenuBar.NoMenuBar.contents
 import scala.swing._
 import scala.swing.event._

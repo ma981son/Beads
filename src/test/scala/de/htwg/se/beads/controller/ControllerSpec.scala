@@ -1,13 +1,11 @@
 package de.htwg.se.beads.controller
 
-import de.htwg.se.beads.util.Observer
+import de.htwg.se.beads.controller.controllerBaseImpl.Controller
+import de.htwg.se.beads.model.template.templateBaseImpl.{Stitch, Template}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
+
 import java.awt.Color._
-
-import de.htwg.se.beads.controller.controllerComponent.controllerBaseImpl.Controller
-import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Color, Stitch, Template}
-
 import scala.language.reflectiveCalls
 
 

@@ -1,10 +1,10 @@
 package de.htwg.se.beads.model
 
+import de.htwg.se.beads.model.template.templateBaseImpl.{Bead, Coord, Matrix, Stitch, Template}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import java.awt.Color._
 
-import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Bead, Coord, Matrix, Stitch, Template}
+import java.awt.Color._
 
 class TemplateSpec extends AnyWordSpec with Matchers {
   "A Template is a Square    of Beads. A Template" when{

@@ -1,10 +1,10 @@
 package de.htwg.se.beads.aview.gui
 
+import de.htwg.se.beads.controller.TemplateChanged
+import de.htwg.se.beads.controller.{BeadChanged, ControllerInterface, TemplateChanged, TemplateSizeChanged}
+import de.htwg.se.beads.model.template.templateBaseImpl.Stitch
+
 import java.awt.Insets
-
-import de.htwg.se.beads.controller.controllerComponent.{BeadChanged, ControllerInterface, TemplateChanged, TemplateSizeChanged}
-import de.htwg.se.beads.model.templateComponent.templateBaseImpl.Stitch
-
 import scala.swing.GridBagPanel
 
 class TemplatePanel(controller: ControllerInterface) extends GridBagPanel {
@@ -50,7 +50,6 @@ class TemplatePanel(controller: ControllerInterface) extends GridBagPanel {
           }
             add(bead, constraints(row, col, 2, anchor = GridBagPanel.Anchor.Center, insets = new Insets(0, 10, 0, 10), fill = GridBagPanel.Fill.Horizontal))
         }
-        //beads(row)(col) = bead
         listenTo(bead)
         repaint
       }
@@ -59,11 +58,10 @@ class TemplatePanel(controller: ControllerInterface) extends GridBagPanel {
 
 
   def squareStrategy(): Unit = {
-    for (row <- 0 until controller.tempWidth) {
+    for (row <- 0 until controller.tempWidth) { //TODO: rekursion
       for (col <- 0 until controller.tempLength) {
         val bead = new BeadPanel(col, row, controller)
         add(bead, constraints(row, col))
-        //beads(row)(col) = bead
         listenTo(bead)
         repaint
       }

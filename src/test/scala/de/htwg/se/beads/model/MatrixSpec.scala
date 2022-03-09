@@ -1,8 +1,7 @@
 package de.htwg.se.beads.model
 
+import de.htwg.se.beads.model.template.templateBaseImpl.{Bead, Coord, Matrix, Stitch}
 import java.awt.Color._
-
-import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Bead, Coord, Matrix, Stitch}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
@@ -36,15 +35,6 @@ class MatrixSpec extends AnyWordSpec with Matchers {
         returnedMatrix.bead(0,0).beadColor should be(RED)
         returnedMatrix.bead(0,1).beadColor should be(RED)
       }
-//      "replace a column of beads and return a new data structure" in {
-//        val returnedMatrix = matrix.replaceColumnColor(1,Color(255,0.0,0.0))
-//        matrix.bead(0,0).beadColor should be(Color(255.0,255.0,255.0))
-//        matrix.bead(1,0).beadColor should be(Color(255.0,255.0,255.0))
-//        matrix.bead(2,0).beadColor should be(Color(255.0,255.0,255.0))
-//        returnedMatrix.bead(0,0).beadColor should be(Color(255.0,0.0,0.0))
-//        returnedMatrix.bead(1,0).beadColor should be(Color(255.0,0.0,0.0))
-//        returnedMatrix.bead(2,0).beadColor should be(Color(255.0,0.0,0.0))
-//      }
       "replace all beads and return a new data structure" in {
         val returnedMatrix = matrix.replaceMatrixColor(RED)
         matrix.bead(0, 0).beadColor should be(WHITE)

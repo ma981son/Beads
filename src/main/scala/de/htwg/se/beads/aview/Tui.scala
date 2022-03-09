@@ -1,8 +1,8 @@
 package de.htwg.se.beads.aview
 
-import de.htwg.se.beads.controller.controllerComponent.{BeadChanged, ControllerInterface, TemplateChanged}
-import de.htwg.se.beads.controller.controllerComponent.controllerBaseImpl.Controller
-import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Stitch, stringToAnsi}
+import de.htwg.se.beads.controller.TemplateChanged
+import de.htwg.se.beads.controller.{BeadChanged, ControllerInterface, TemplateChanged}
+import de.htwg.se.beads.model.template.templateBaseImpl.{Stitch, stringToAnsi}
 
 import scala.io.StdIn.readLine
 import scala.swing.Reactor

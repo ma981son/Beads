@@ -1,11 +1,10 @@
 package de.htwg.se.beads.model
 
+import de.htwg.se.beads.model.template.templateBaseImpl.{Bead, Coord, Stitch, awtColorToAnsi}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
+
 import java.awt.Color._
-
-import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Bead, Coord, Stitch, awtColorToAnsi}
-
 import scala.io.AnsiColor.RESET
 
 class BeadSpec extends AnyWordSpec with Matchers {

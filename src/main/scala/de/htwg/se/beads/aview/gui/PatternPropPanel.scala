@@ -1,14 +1,13 @@
 package de.htwg.se.beads.aview.gui
 
+import de.htwg.se.beads.controller.ControllerInterface
+import de.htwg.se.beads.model.template.templateBaseImpl.Stitch
+
 import java.awt.Color.{LIGHT_GRAY, WHITE}
 import java.awt.{Color, Dimension}
-
-import de.htwg.se.beads.controller.controllerComponent.ControllerInterface
-import de.htwg.se.beads.model.templateComponent.templateBaseImpl.Stitch
 import javax.swing.colorchooser.AbstractColorChooserPanel
 import javax.swing.event.{ChangeEvent, ChangeListener}
 import javax.swing.{JPanel, JSpinner, SpinnerNumberModel}
-
 import scala.swing.Swing.LineBorder
 import scala.swing.event.{ButtonClicked, ColorChanged, EditDone, SelectionChanged}
 import scala.swing.{BorderPanel, Button, ColorChooser, ComboBox, Component, GridPanel, Label, Swing, TextField}

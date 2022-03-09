@@ -1,6 +1,7 @@
 package de.htwg.se.beads.aview.gui
 
-import de.htwg.se.beads.controller.controllerComponent.{BeadChanged, ControllerInterface, TemplateChanged, TemplateSizeChanged}
+import de.htwg.se.beads.controller.TemplateChanged
+import de.htwg.se.beads.controller.{BeadChanged, ControllerInterface, TemplateChanged, TemplateSizeChanged}
 
 import scala.swing._
 import scala.swing.event._
@@ -69,19 +70,10 @@ class SwingGUI(controller: ControllerInterface) extends Frame {
         c
       }
         add(tempPanel,constraints(0,0))
-        //peer.setMaximumSize(new Dimension(200,200))
       }
       contents += patternProp
       border = Swing.EmptyBorder(10, 10, 10, 10)
     }
     repaint
-
-//    contents = new BorderPanel {
-//      add(tempPanel,BorderPanel.Position.Center)
-//      add(patternProp,BorderPanel.Position.East)
-//      border = Swing.EmptyBorder(10,10,10,10)
-//    }
-//    repaint
   }
-
 }

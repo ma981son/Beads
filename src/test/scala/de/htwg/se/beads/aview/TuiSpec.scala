@@ -1,9 +1,8 @@
 package de.htwg.se.beads.aview
-import de.htwg.se.beads.controller.controllerComponent.controllerBaseImpl.Controller
-import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Color, Stitch, Template}
+import de.htwg.se.beads.controller.controllerBaseImpl.Controller
+import de.htwg.se.beads.model.template.templateBaseImpl.{Stitch, Template}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-
 
 class TuiSpec extends AnyWordSpec with Matchers {
 

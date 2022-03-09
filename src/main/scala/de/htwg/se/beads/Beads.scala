@@ -3,7 +3,7 @@ package de.htwg.se.beads
 import com.google.inject.{Guice, Injector}
 import de.htwg.se.beads.aview.Tui
 import de.htwg.se.beads.aview.gui.SwingGUI
-import de.htwg.se.beads.controller.controllerComponent.ControllerInterface
+import de.htwg.se.beads.controller.ControllerInterface
 
 import scala.io.AnsiColor._
 
