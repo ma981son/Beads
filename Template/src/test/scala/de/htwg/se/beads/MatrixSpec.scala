@@ -1,9 +1,10 @@
-package de.htwg.se.beads.model
+package de.htwg.se.beads
 
 import de.htwg.se.beads.model.template.templateBaseImpl.{Bead, Coord, Matrix, Stitch}
-import java.awt.Color._
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
+
+import java.awt.Color._
 
 class MatrixSpec extends AnyWordSpec with Matchers {
   "A Matrix is a tailor-made immutable data type that contains a two-dimentional Vector of Beads. A Matrix" when {

@@ -1,6 +1,6 @@
-package de.htwg.se.beads.model
+package de.htwg.se.beads
 
-import de.htwg.se.beads.model.template.templateBaseImpl.{Bead, Coord, Matrix, Stitch, Template}
+import de.htwg.se.beads.model.template.templateBaseImpl._
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 

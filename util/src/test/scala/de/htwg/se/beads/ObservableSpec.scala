@@ -1,4 +1,6 @@
-package de.htwg.se.beads.util
+package de.htwg.se.beads
+
+import de.htwg.se.beads.util.{Observable, Observer}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 

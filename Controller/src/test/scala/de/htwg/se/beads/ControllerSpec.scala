@@ -1,4 +1,4 @@
-package de.htwg.se.beads.controller
+package de.htwg.se.beads
 
 import de.htwg.se.beads.controller.controllerBaseImpl.Controller
 import de.htwg.se.beads.model.template.templateBaseImpl.{Stitch, Template}

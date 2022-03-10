@@ -1,4 +1,4 @@
-package de.htwg.se.beads.model
+package de.htwg.se.beads
 
 import de.htwg.se.beads.model.template.templateBaseImpl.Coord
 import org.scalatest.matchers.should.Matchers
