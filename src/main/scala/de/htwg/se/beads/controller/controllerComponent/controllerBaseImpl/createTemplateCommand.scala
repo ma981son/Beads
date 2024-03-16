@@ -1,14 +1,18 @@
-package de.htwg.se.beads.controller
-
-import de.htwg.se.beads.model.{Stitch, Template}
+package de.htwg.se.beads.controller.controllerComponent.controllerBaseImpl
+import com.google.inject.Guice
+import com.google.inject.name.Names
+import de.htwg.se.beads.BeadModule
+import de.htwg.se.beads.model.templateComponent.TemplateInterface
+import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Stitch, Template}
 import de.htwg.se.beads.util.Command
 
 class createTemplateCommand(length: Int, width: Int,stitch:Stitch.Value,controller: Controller) extends Command{
-  var memento:Template = controller.temp
+  var memento:TemplateInterface = controller.temp
+  val injector = Guice.createInjector(new BeadModule)
 
   override def doStep(): Unit = {
     memento = controller.temp
-    val newtemp = controller.temp.changeTemplate(length,width,stitch)
+    val newtemp = controller.temp.newTemplate(length,width,stitch)
     controller.temp = newtemp
   }
 

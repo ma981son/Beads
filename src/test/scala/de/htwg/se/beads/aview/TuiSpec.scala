@@ -1,6 +1,6 @@
 package de.htwg.se.beads.aview
-import de.htwg.se.beads.controller.Controller
-import de.htwg.se.beads.model.{Color, Stitch, Template}
+import de.htwg.se.beads.controller.controllerComponent.controllerBaseImpl.Controller
+import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Color, Stitch, Template}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
@@ -16,7 +16,7 @@ class TuiSpec extends AnyWordSpec with Matchers {
     }
     "set a bead color on intput '0 0 red'" in{
       tui.processInputLine("0 0 red")
-      controller.temp.bead(0,0).beadColor should be(Color(255,0,0))
+      controller.temp.bead(0,0).beadColor should be(java.awt.Color.RED)
     }
   }
 }

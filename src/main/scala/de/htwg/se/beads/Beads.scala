@@ -1,16 +1,19 @@
 package de.htwg.se.beads
 
+import com.google.inject.Guice
 import de.htwg.se.beads.aview.Tui
-import de.htwg.se.beads.controller.Controller
-import de.htwg.se.beads.model.{Stitch, Template}
+import de.htwg.se.beads.aview.gui.SwingGUI
+import de.htwg.se.beads.controller.controllerComponent.ControllerInterface
 
 import scala.io.AnsiColor._
 import scala.io.StdIn.readLine
 
 object Beads {
-  val controller = new Controller(new Template(1,6,Stitch.Square))
+  val injector = Guice.createInjector(new BeadModule)
+  val controller = injector.getInstance(classOf[ControllerInterface])
   val tui = new Tui(controller)
-  controller.notifyObservers()
+  val gui = new SwingGUI(controller)
+
 
   def main(args:Array[String]): Unit = {
     var input:String = ""
@@ -22,15 +25,15 @@ object Beads {
     print(s"${CYAN}cyan$RESET, ${WHITE}white$RESET\n")
 
 
-    print("Enter Template length,witdth and stitch: ")
-    inputSize = readLine()
-    tui.processInputSizeLine(inputSize)
-
-    if (args.length>0) input=args(0)
-    if (!input.isEmpty) tui.processInputLine(input)
-    else do{
-      input = readLine()
-      tui.processInputLine(input)
-    }while(input != "q")
+//    print("Enter Template length,witdth and stitch: ")
+//    inputSize = readLine()
+//    tui.processInputSizeLine(inputSize)
+//
+//    if (args.length>0) input=args(0)
+//    if (!input.isEmpty) tui.processInputLine(input)
+//    else do{
+//      input = readLine()
+//      tui.processInputLine(input)
+//    }while(input != "q")
   }
 }
